@@ -21,3 +21,4 @@ const PostsController = {
 };
 
 module.exports = PostsController;
+
