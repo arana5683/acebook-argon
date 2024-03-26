@@ -29,6 +29,11 @@ export const FeedPage = () => {
     return;
   }
 
+  const logout = () => {
+    localStorage.removeItem("token");
+    navigate("/login");
+  }
+
   return (
     <>
       <h2>Posts</h2>
@@ -37,6 +42,8 @@ export const FeedPage = () => {
           <Post post={post} key={post._id} />
         ))}
       </div>
+      <button onClick={logout}>Log Out</button>
     </>
   );
+  
 };
