@@ -12,16 +12,15 @@ const PostForm = (props) => {
 
     const handlePost = () => {
         if (text.trim() !== '') {
-            console.log(typeof text)
             const formattedText = `{"message": "${text}"}`
-            postNewPost(props.token, formattedText);
+            postNewPost(props.token, JSON.parse(formattedText));
             setText('')
         }
     };
 
     return(
         <>
-            <textarea placeholder="What's on your mind?" value={text} onChange={handleChange}></textarea>
+            <textarea name="text-area" placeholder="What's on your mind?" value={text} onChange={handleChange}></textarea>
             <button onClick={handlePost}>Post!</button>
         </>
     )
