@@ -1,11 +1,12 @@
 import PostingUser from "./PostingUser";
+import "./Post.css"
 
 const Post = (props) => {
   return (
-    <>
-      <article key={props.post._id}>{props.post.message}</article>
-      <PostingUser post={props.post} />
-    </>
+    <div className="Post">
+      <PostingUser post={props.post}/>
+      <article className="testContent" key={props.post._id}>{props.post.message}</article>
+    </div>
   );
 };
 

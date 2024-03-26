@@ -1,0 +1,13 @@
+.postingUser {
+    display: inline-block;
+}
+
+.profilePicture {
+    max-height: 50px;
+    border-radius: 10px;
+}
+
+.name {
+    font-size: 12px;
+}
+
