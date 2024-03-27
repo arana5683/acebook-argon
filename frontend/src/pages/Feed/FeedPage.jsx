@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 
 import { getPosts } from "../../services/posts";
 import Post from "../../components/Post/Post";
+import { NavBar } from "../../components/NavBar";
 
 export const FeedPage = () => {
   const [posts, setPosts] = useState([]);
@@ -28,22 +29,15 @@ export const FeedPage = () => {
     navigate("/login");
     return;
   }
-
-  const logout = () => {
-    localStorage.removeItem("token");
-    navigate("/login");
-  }
-
   return (
     <>
+    <NavBar />
       <h2>Posts</h2>
       <div className="feed" role="feed">
         {posts.map((post) => (
           <Post post={post} key={post._id} />
         ))}
       </div>
-      <button onClick={logout}>Log Out</button>
+        
     </>
-  );
-  
-};
+)};
