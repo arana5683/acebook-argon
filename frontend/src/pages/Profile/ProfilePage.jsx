@@ -2,7 +2,6 @@ import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { getUser } from "../../services/users";
 
-
 export const ProfilePage = () => {
     const navigate = useNavigate();
     const [user, setUser] = useState({})
@@ -29,5 +28,4 @@ export const ProfilePage = () => {
     }
     
     return <h1>{user.firstname} {user.lastname}</h1>
-
 }
