@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { getPosts } from "../../services/posts";
 import Post from "../../components/Post/Post";
 import { NavBar } from "../../components/NavBar";
+import PostForm from "../../components/Post/PostForm";
 
 export const FeedPage = () => {
   const [posts, setPosts] = useState([]);
@@ -15,6 +16,7 @@ export const FeedPage = () => {
       getPosts(token)
         .then((data) => {
           setPosts(data.posts);
+
           localStorage.setItem("token", data.token);
         })
         .catch((err) => {
@@ -22,7 +24,9 @@ export const FeedPage = () => {
           navigate("/login");
         });
     }
-  }, [navigate]);
+  }, [navigate, posts]);
+
+
 
   const token = localStorage.getItem("token");
   if (!token) {
@@ -32,6 +36,7 @@ export const FeedPage = () => {
   return (
     <>
     <NavBar />
+    <PostForm token={token}/>
       <h2>Posts</h2>
       <div className="feed" role="feed">
         {posts.map((post) => (
@@ -39,5 +44,6 @@ export const FeedPage = () => {
         ))}
       </div>
         
+      
     </>
 )};

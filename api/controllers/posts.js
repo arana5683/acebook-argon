@@ -10,7 +10,6 @@ const getAllPosts = async (req, res) => {
 const createPost = async (req, res) => {
   const post = new Post(req.body);
   post.save();
-
   const newToken = generateToken(req.user_id);
   res.status(201).json({ message: "Post created", token: newToken });
 };
