@@ -27,7 +27,7 @@ const getUser = async (req, res) => {
   })
   .catch((err) => {
     console.error(err);
-    res.status(400).json({ message: "Something went wrong" });
+    res.status(400).json({ message: "User not found" });
   })
 }
 
