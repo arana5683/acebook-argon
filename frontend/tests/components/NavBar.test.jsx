@@ -1,5 +1,5 @@
 import { render, screen } from '@testing-library/react';
-import { FeedPage } from '../../src/pages/Feed/FeedPage';
+//import { FeedPage } from '../../src/pages/Feed/FeedPage';
 import { vi } from "vitest";
 import { NavBar } from '../../src/components/NavBar';
 
@@ -12,16 +12,16 @@ vi.mock("react-router-dom", () => {
 describe("NavBar", () => {
     test('page should have a Log Out button', () => {
         render(<NavBar />);
-        expect(screen.getByText("Log Out"));
+        expect(screen.getByText("Log Out")).toBeInDocument();
 });
 
     test('page should have a My Profile button', () => {
         render(<NavBar />);
-        expect(screen.getByText("My Profile"));
+        expect(screen.getByText("My Profile")).toBeInDocument();
 });
 
     test('page should have a Homepage button', () => {
         render(<NavBar />);
-        expect(screen.getByText("Homepage"));
+        expect(screen.getByText("Homepage")).toBeInDocument();
 });
 })
