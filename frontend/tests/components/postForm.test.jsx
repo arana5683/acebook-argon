@@ -1,18 +1,15 @@
 import { fireEvent, render, screen } from "@testing-library/react";
-// import {vi }from 'vitest'
+import {vi, expect }from 'vitest'
 import PostForm from  "../../src/components/Post/PostForm";
 import {postNewPost} from "../../src/services/posts";
 
 // Mocking postNewPost function with vitest
-// vi.mock('../../src/services/posts', () => ({
-//     default: vi.fn(),
-// }))
+vi.mock('../../src/services/posts', () => {
+    const postNewPostMock = vi.fn();
+    return {postNewPost: postNewPostMock}
+})
 
 describe('unit testing for post form', () =>{
-    // afterEach(() => {
-    //     // Clear mock function calls after each test
-    //     vi.mockClear();
-    // });
 
     test('testing that the textarea renders', () => {
         render(<PostForm />)
