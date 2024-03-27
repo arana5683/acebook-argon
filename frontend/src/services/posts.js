@@ -34,12 +34,8 @@ export const postNewPost = async (token, postContents) => {
   
   if (response.status !== 201) {
     console.log(response.status)
-    throw new Error("Unable to create post");
+    throw new Error(
+      `Received status ${response.status}. Expected 201. Unable to create post.`)
   }
-
-  const data = await response.json();
-  return data
-
-
 };
 
