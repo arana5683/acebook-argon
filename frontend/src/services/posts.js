@@ -39,7 +39,8 @@ export const postNewPost = async (token, postContents) => {
   }
 
   const data = await response.json();
-  console.log(data)
+  return data.response
 
 
 };
+

@@ -15,6 +15,7 @@ export const FeedPage = () => {
       getPosts(token)
         .then((data) => {
           setPosts(data.posts);
+
           localStorage.setItem("token", data.token);
         })
         .catch((err) => {
@@ -22,7 +23,9 @@ export const FeedPage = () => {
           navigate("/login");
         });
     }
-  }, [navigate]);
+  }, [navigate, posts]);
+
+
 
   const token = localStorage.getItem("token");
   if (!token) {
@@ -32,13 +35,14 @@ export const FeedPage = () => {
 
   return (
     <>
+    <PostForm token={token}/>
       <h2>Posts</h2>
       <div className="feed" role="feed">
         {posts.map((post) => (
           <Post post={post} key={post._id} />
         ))}
       </div>
-      <PostForm token={token}/>
+      
     </>
   );
 };

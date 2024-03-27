@@ -21,7 +21,7 @@ const PostForm = (props) => {
     return(
         <>
             <textarea name="text-area" placeholder="What's on your mind?" value={text} onChange={handleChange}></textarea>
-            <button onClick={handlePost}>Post!</button>
+            <button role = "post-button" onClick={handlePost}>Post!</button>
         </>
     )
 };
