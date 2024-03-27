@@ -1,6 +1,8 @@
 import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { getUser } from "../../services/users";
+import { NavBar } from "../../components/NavBar";
+
 
 export const ProfilePage = () => {
     const navigate = useNavigate();
@@ -27,5 +29,15 @@ export const ProfilePage = () => {
         return;
     }
     
-    return <h1>{user.firstname} {user.lastname}</h1>
+    return (
+    <>
+    <div>
+        <NavBar />
+    </div>
+    <h1>{user.firstName} {user.lastName}</h1>
+    <h3>{user.email}</h3>
+    <br></br>
+    <img className="profilePicture"src = "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_640.png"></img>
+    </>
+    )
 }
