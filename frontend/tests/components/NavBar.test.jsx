@@ -10,17 +10,17 @@ vi.mock("react-router-dom", () => {
 });
 
 describe("NavBar", () => {
-    test('page should have a button', () => {
+    test('page should have a Log Out button', () => {
         render(<NavBar />);
         expect(screen.getByText("Log Out"));
 });
 
-    test('page should have a button', () => {
+    test('page should have a My Profile button', () => {
         render(<NavBar />);
         expect(screen.getByText("My Profile"));
 });
 
-    test('page should have a button', () => {
+    test('page should have a Homepage button', () => {
         render(<NavBar />);
         expect(screen.getByText("Homepage"));
 });

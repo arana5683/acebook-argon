@@ -1,22 +1,13 @@
 import { useNavigate } from "react-router-dom";
 import { FeedPage } from "../pages/Feed/FeedPage";
 
-
-
-
 export const NavBar = () => {
     const navigate = useNavigate();
-
 
     const logout = () => {
     localStorage.removeItem("token");
     navigate("/login");
-
-
-
-
-    }
-
+}
 // feed page is our homepage
     return (
         <>
