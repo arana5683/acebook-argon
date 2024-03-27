@@ -32,6 +32,6 @@ describe ("Profile Page tests", () => {
         const mockUser = {firstname: "user", lastname: "paul"};
         getUser.mockResolvedValue({user: mockUser, token: "newtoken"});
         render(<ProfilePage />);
-        expect(await screen.findByText("user paul"));
+        expect(await screen.findByText("user paul")).toBeInTheDocument();
     });
 })
