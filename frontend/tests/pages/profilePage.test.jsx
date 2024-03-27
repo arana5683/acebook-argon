@@ -1,9 +1,8 @@
 import { render, screen } from "@testing-library/react";
 import { ProfilePage } from "../../src/pages/Profile/ProfilePage";
-import { vi } from "vitest";
+import { vi, expect } from "vitest";
 import { useNavigate } from "react-router-dom";
 import { getUser } from "../../src/services/users";
-
 
 vi.mock("../../src/services/users", () => {
     const getUserMock = vi.fn();
