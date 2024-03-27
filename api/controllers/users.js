@@ -2,10 +2,12 @@ const User = require("../models/user");
 const { generateToken } = require("../lib/token");
 
 const create = (req, res) => {
+  const firstName = req.body.firstName;
+  const lastName = req.body.lastName;
   const email = req.body.email;
   const password = req.body.password;
 
-  const user = new User({ email, password });
+  const user = new User({ firstName, lastName, email, password });
   user
     .save()
     .then((user) => {
