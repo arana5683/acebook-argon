@@ -29,9 +29,11 @@ describe ("Profile Page tests", () => {
 
     test("it displays user info from backend", async () => {
         window.localStorage.setItem("token", "testToken");
-        const mockUser = {firstname: "user", lastname: "paul"};
+        const mockUser = {firstName: "user", lastName: "paul", email: "useremail@gmail.com"};
         getUser.mockResolvedValue({user: mockUser, token: "newtoken"});
         render(<ProfilePage />);
         expect(await screen.findByText("user paul")).toBeInTheDocument();
+        expect(await screen.findByText("useremail@gmail.com")).toBeInTheDocument();
+        expect(await screen.getByRole("img")).toBeVisible();
     });
 })
