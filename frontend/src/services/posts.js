@@ -21,7 +21,6 @@ export const getPosts = async (token) => {
 };
 
 export const postNewPost = async (token, postContents) => {
-  console.log(postContents)
   const requestOptions = {
     method: "POST",
     headers: {
@@ -32,14 +31,14 @@ export const postNewPost = async (token, postContents) => {
   };
 
   const response = await fetch(`${BACKEND_URL}/posts`, requestOptions);
-  console.log(typeof postContents)
+  
   if (response.status !== 201) {
     console.log(response.status)
     throw new Error("Unable to create post");
   }
 
   const data = await response.json();
-  return data.response
+  return data
 
 
 };
