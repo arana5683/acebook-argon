@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 
 import { getPosts } from "../../services/posts";
 import Post from "../../components/Post/Post";
+import { NavBar } from "../../components/NavBar";
 import PostForm from "../../components/Post/PostForm";
 
 export const FeedPage = () => {
@@ -32,9 +33,9 @@ export const FeedPage = () => {
     navigate("/login");
     return;
   }
-
   return (
     <>
+    <NavBar />
     <PostForm token={token}/>
       <h2>Posts</h2>
       <div className="feed" role="feed">
@@ -42,7 +43,7 @@ export const FeedPage = () => {
           <Post post={post} key={post._id} />
         ))}
       </div>
+        
       
     </>
-  );
-};
+)};
