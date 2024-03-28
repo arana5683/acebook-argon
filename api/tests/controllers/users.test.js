@@ -26,6 +26,8 @@ describe("/users GET", () => {
   describe("GET", () => {
     beforeAll(async () => {
       const user = new User({
+        firstName: "testFirstName",
+        lastName: "testLastName",
         email: "post-test@test.com",
         password: "12345678",
       });
@@ -47,6 +49,8 @@ describe("/users GET", () => {
         .set("Authorization", `Bearer ${token}`);
 
       expect(response.status).toEqual(200);
+      expect(response.body.user.firstName).toEqual("testFirstName");
+      expect(response.body.user.lastName).toEqual("testLastName");
       expect(response.body.user.email).toEqual("post-test@test.com");
       expect(response.body.user.password).toEqual("12345678");
     });
@@ -58,11 +62,16 @@ describe("/users", () => {
     await User.deleteMany({});
   });
 
-  describe("POST, when email and password are provided", () => {
+  describe("POST, when all info is provided", () => {
     test("the response code is 201", async () => {
       const response = await request(app)
         .post("/users")
-        .send({ email: "poppy@email.com", password: "1234" });
+        .send({ 
+          firstName: "testFirstName",
+          lastName: "testLastName",
+          email: "poppy@email.com", 
+          password: "1234" 
+        });
 
       expect(response.statusCode).toBe(201);
     });
@@ -70,10 +79,17 @@ describe("/users", () => {
     test("a user is created", async () => {
       await request(app)
         .post("/users")
-        .send({ email: "scarconstt@email.com", password: "1234" });
+        .send({ 
+          firstName: "testFirstName",
+          lastName: "testLastName",
+          email: "scarconstt@email.com", 
+          password: "1234" 
+        });
 
       const users = await User.find();
       const newUser = users[users.length - 1];
+      expect(newUser.firstName).toEqual("testFirstName");
+      expect(newUser.lastName).toEqual("testLastName");
       expect(newUser.email).toEqual("scarconstt@email.com");
     });
   });
