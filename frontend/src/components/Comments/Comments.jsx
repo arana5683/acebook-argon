@@ -6,21 +6,17 @@ const Comments = (props) => {
     
     useEffect(() => {
             getComments(props.token).then((data) => {
-                setBackEndComments([data.comments])
+                setBackEndComments(data.comments)
             });
     }, [props.token]);
-    
+
     return ( 
         <div className="comments">
-            <h3 className="comments-title">Comments</h3>
-            {backEndComments.filter((comment) => {
-                console.log()
-                if (comment.parentID == props.post._id) {
-                    return <h5 className="comment" key="comment">{comment}</h5>
-                }
-            })}
+                {backEndComments.map((comment) => {
+                    if (comment.parentID == props.post._id) {
+                        return <h5 key={comment._id}>{comment.body}</h5>}
+                })}
         </div>
-    );
-};
+    )}
 
-export default Comments; 
+export default Comments;
