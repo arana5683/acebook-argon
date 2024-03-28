@@ -1,5 +1,6 @@
 const Post = require("../models/post");
 const { generateToken } = require("../lib/token");
+const User = require("../models/user");
 
 const getAllPosts = async (req, res) => {
   const posts = await Post.find();
@@ -8,7 +9,14 @@ const getAllPosts = async (req, res) => {
 };
 
 const createPost = async (req, res) => {
-  const post = new Post(req.body);
+  const { message } = req.body;
+  const user = await User.findById(req.user_id);
+  const post = new Post({
+    userId: user._id,
+    firstName: user.firstName,
+    lastName: user.lastName,
+    message: message,
+  })
   post.save();
   const newToken = generateToken(req.user_id);
   res.status(201).json({ message: "Post created", token: newToken });
