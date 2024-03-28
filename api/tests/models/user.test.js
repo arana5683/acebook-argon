@@ -29,6 +29,8 @@ describe("User model", () => {
 
   it("can save a user", async () => {
     const user = new User({
+      firstName: "firstName",
+      lastName: "lastName",
       email: "someone@example.com",
       password: "password",
     });
@@ -36,6 +38,8 @@ describe("User model", () => {
     await user.save();
     const users = await User.find();
 
+    expect(users[0].firstName).toEqual("firstName");
+    expect(users[0].lastName).toEqual("lastName");
     expect(users[0].email).toEqual("someone@example.com");
     expect(users[0].password).toEqual("password");
   });
