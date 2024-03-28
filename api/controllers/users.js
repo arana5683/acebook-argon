@@ -25,7 +25,11 @@ const getUser = async (req, res) => {
   const token = generateToken(req.user_id);
   User.findById(userId)
   .then((user) => {
-    res.status(200).json({ user: user, token: token });
+    res.status(200).json({ user: {
+      firstName: user.firstName,
+      lastName: user.lastName,
+      email: user.email
+    }, token: token });
   })
   .catch((err) => {
     console.error(err);
