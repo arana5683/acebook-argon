@@ -15,7 +15,6 @@ export const FeedPage = () => {
       getPosts(token)
         .then((data) => {
           setPosts(data.posts);
-
           localStorage.setItem("token", data.token);
         })
         .catch((err) => {
@@ -42,7 +41,5 @@ export const FeedPage = () => {
           <Post post={post} key={post._id} token={token} />
         ))}
       </div>
-        
-      
     </>
 )};

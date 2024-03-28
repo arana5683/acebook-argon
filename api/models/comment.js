@@ -12,6 +12,6 @@ const Comment = mongoose.model("Comment", CommentSchema);
 new Comment({body: "First Comment", 
 userName: "AwesomeUser", 
 userID: "ID", 
-parentID: ""}).save();
+parentID: "660155fa0a81a51974be11c8"}).save();
 
 module.exports = Comment;
