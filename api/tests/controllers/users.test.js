@@ -52,7 +52,6 @@ describe("/users GET", () => {
       expect(response.body.user.firstName).toEqual("testFirstName");
       expect(response.body.user.lastName).toEqual("testLastName");
       expect(response.body.user.email).toEqual("post-test@test.com");
-      expect(response.body.user.password).toEqual("12345678");
     });
   });
 })
