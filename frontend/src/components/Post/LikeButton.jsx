@@ -15,9 +15,9 @@ const LikeDisplay = () => {
     }
     return (
         <div id="like-button-container">
-        <p>{count}</p>
-        <button style={{ margin: '5px 5px' }}onClick={like}><FontAwesomeIcon icon={faThumbsUp} /></button>
-        {count >= 1 && <button onClick={dislike}><FontAwesomeIcon icon={faThumbsDown} /></button>}
+        <p role="like-counter">{count}</p>
+        <button role="like-button"style={{ margin: '5px 5px' }}onClick={like} alt="like-icon"><FontAwesomeIcon icon={faThumbsUp} /></button>
+        {count >= 1 && <button role="dislike-button" onClick={dislike} alt="dislike-icon"><FontAwesomeIcon icon={faThumbsDown} /></button>}
         </div>
     )
 }
