@@ -5,6 +5,7 @@ import { getPosts } from "../../services/posts";
 import Post from "../../components/Post/Post";
 import { NavBar } from "../../components/NavBar";
 import PostForm from "../../components/Post/PostForm";
+// import ShareImage from "../../components/uploadImage/uploadImage";
 
 export const FeedPage = () => {
   const [posts, setPosts] = useState([]);
