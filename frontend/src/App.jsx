@@ -7,6 +7,7 @@ import { SignupPage } from "./pages/Signup/SignupPage";
 import { FeedPage } from "./pages/Feed/FeedPage";
 
 // docs: https://reactrouter.com/en/main/start/overview
+
 const router = createBrowserRouter([
   {
     path: "/",

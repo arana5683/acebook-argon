@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-
 import { getPosts } from "../../services/posts";
 import Post from "../../components/Post/Post";
 import { NavBar } from "../../components/NavBar";
@@ -40,7 +39,7 @@ export const FeedPage = () => {
       <h2>Posts</h2>
       <div className="feed" role="feed">
         {posts.map((post) => (
-          <Post post={post} key={post._id} />
+          <Post post={post} key={post._id} token={token} />
         ))}
       </div>
         
