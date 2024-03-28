@@ -1,7 +1,8 @@
 article {
-    padding-top: 40px;
+    padding-top: 5px;
     margin-left: 10px;
-    font-size: 10px;
+    font-size: 11px;
+    font-weight: 450;
     text-overflow: wrap;
 }
 
@@ -31,13 +32,12 @@ article {
         padding: 10px;
         max-width: 400px;
     }
-    .item {
+
+    .item-left {
+        grid-column-start: 1; /* Align to the far left */
         background-color: lightgray;
         padding: 20px;
         text-align: center;
-    }
-    .item-left {
-        grid-column-start: 1; /* Align to the far left */
     }
     /* .item-wide {
         padding-top: 40px;
@@ -48,5 +48,7 @@ article {
     } */
     .item-right {
         grid-column-end: 1; /* Align to the far right */
-        
+        background-color: lightgray;
+        padding: 20px;
+        text-align: center;
     }

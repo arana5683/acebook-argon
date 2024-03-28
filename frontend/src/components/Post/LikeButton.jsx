@@ -16,7 +16,7 @@ const LikeDisplay = () => {
     return (
         <div id="like-button-container">
         <p>{count}</p>
-        <button onClick={like}><FontAwesomeIcon icon={faThumbsUp} /></button>
+        <button style={{ margin: '5px 5px' }}onClick={like}><FontAwesomeIcon icon={faThumbsUp} /></button>
         {count >= 1 && <button onClick={dislike}><FontAwesomeIcon icon={faThumbsDown} /></button>}
         </div>
     )
