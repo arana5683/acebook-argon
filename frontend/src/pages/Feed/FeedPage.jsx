@@ -5,7 +5,7 @@ import { getPosts } from "../../services/posts";
 import Post from "../../components/Post/Post";
 import { NavBar } from "../../components/NavBar";
 import PostForm from "../../components/Post/PostForm";
-// import ShareImage from "../../components/uploadImage/uploadImage";
+import { postNewPost } from "../../services/posts";
 
 export const FeedPage = () => {
   const [posts, setPosts] = useState([]);
@@ -17,7 +17,6 @@ export const FeedPage = () => {
       getPosts(token)
         .then((data) => {
           setPosts(data.posts);
-
           localStorage.setItem("token", data.token);
         })
         .catch((err) => {
@@ -25,8 +24,23 @@ export const FeedPage = () => {
           navigate("/login");
         });
     }
-  }, [navigate, posts]);
+  }, [navigate]);
 
+  const handleNewPost = (text) => {
+    if (text.trim() !== '') {
+      const formattedText = `{"message": "${text}"}`
+      postNewPost(token, JSON.parse(formattedText));
+      getPosts(token)
+        .then((data) => {
+          setPosts(data.posts);
+          localStorage.setItem("token", data.token);
+        })
+        .catch((err) => {
+          console.error(err);
+          navigate("/login");
+        });
+    }
+  }
 
 
   const token = localStorage.getItem("token");
@@ -34,10 +48,11 @@ export const FeedPage = () => {
     navigate("/login");
     return;
   }
+
   return (
     <>
     <NavBar />
-    <PostForm token={token}/>
+    <PostForm handleNewPost={handleNewPost}/>
       <h2>Posts</h2>
       <div className="feed" role="feed">
         {posts.map((post) => (
