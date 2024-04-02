@@ -14,15 +14,16 @@ const Comments = (props) => {
     return ( 
         <div className="comments">
                 <p>Comments:</p>
-                {backEndComments.map((comment) => {
+                {props.showComments && backEndComments.map((comment) => {
                     if (comment.parentID == props.post._id) {
                         return (
                         <>
                         <Comment key={comment._id} comment={comment} />
                         </>
                     )}
-                })}
+                })};
         </div>
-    )}
+    )};
 
+    
 export default Comments;

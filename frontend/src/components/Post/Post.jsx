@@ -20,7 +20,7 @@ const Post = (props) => {
         </button>
       </div>
     </div>
-    {showComments && <Comments token={props.token} post={props.post}/>}
+    {showComments && <Comments token={props.token} post={props.post} showComments={showComments}/>}
     </>
   );
 };
