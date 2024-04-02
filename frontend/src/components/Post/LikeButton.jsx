@@ -13,6 +13,9 @@ const LikeDisplay = () => {
     const dislike = () => {
         setCount(count - 1);
     }
+
+    // add an event listener for this button to get user id and make a put method request to backend
+    // something like handlelike
     return (
         <div id="like-button-container">
         <p role="like-counter">{count}</p>
