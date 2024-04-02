@@ -37,7 +37,6 @@ describe("/posts", () => {
   });
 
   afterEach(async () => {
-    await User.deleteMany({});
     await Post.deleteMany({});
   });
 
@@ -106,8 +105,18 @@ describe("/posts", () => {
 
   describe("GET, when token is present", () => {
     test("the response code is 200", async () => {
-      const post1 = new Post({ message: "I love all my children equally" });
-      const post2 = new Post({ message: "I've never cared for GOB" });
+      const post1 = new Post({ 
+        userId: "testId",
+        firstName: "testFirstName",
+        lastName: "testLastName",
+        message: "I love all my children equally" 
+      });
+      const post2 = new Post({ 
+        userId: "testId",
+        firstName: "testFirstName",
+        lastName: "testLastName",
+        message: "I've never cared for GOB" 
+      });
       await post1.save();
       await post2.save();
 
@@ -119,8 +128,18 @@ describe("/posts", () => {
     });
 
     test("returns every post in the collection", async () => {
-      const post1 = new Post({ message: "howdy!" });
-      const post2 = new Post({ message: "hola!" });
+      const post1 = new Post({ 
+        userId: "testId",
+        firstName: "testFirstName",
+        lastName: "testLastName",
+        message: "howdy!" 
+      });
+      const post2 = new Post({ 
+        userId: "testId",
+        firstName: "testFirstName",
+        lastName: "testLastName",
+        message: "hola!" 
+      });
       await post1.save();
       await post2.save();
 
@@ -137,8 +156,18 @@ describe("/posts", () => {
     });
 
     test("returns a new token", async () => {
-      const post1 = new Post({ message: "First Post!" });
-      const post2 = new Post({ message: "Second Post!" });
+      const post1 = new Post({ 
+        userId: "testId",
+        firstName: "testFirstName",
+        lastName: "testLastName",
+        message: "First Post!" 
+      });
+      const post2 = new Post({ 
+        userId: "testId",
+        firstName: "testFirstName",
+        lastName: "testLastName",
+        message: "Second Post!" 
+      });
       await post1.save();
       await post2.save();
 
@@ -157,8 +186,18 @@ describe("/posts", () => {
 
   describe("GET, when token is missing", () => {
     test("the response code is 401", async () => {
-      const post1 = new Post({ message: "howdy!" });
-      const post2 = new Post({ message: "hola!" });
+      const post1 = new Post({ 
+        userId: "testId",
+        firstName: "testFirstName",
+        lastName: "testLastName",
+        message: "howdy!" 
+      });
+      const post2 = new Post({ 
+        userId: "testId",
+        firstName: "testFirstName",
+        lastName: "testLastName",
+        message: "hola!" 
+      });
       await post1.save();
       await post2.save();
 
@@ -168,8 +207,18 @@ describe("/posts", () => {
     });
 
     test("returns no posts", async () => {
-      const post1 = new Post({ message: "howdy!" });
-      const post2 = new Post({ message: "hola!" });
+      const post1 = new Post({ 
+        userId: "testId",
+        firstName: "testFirstName",
+        lastName: "testLastName",
+        message: "howdy!" 
+      });
+      const post2 = new Post({ 
+        userId: "testId",
+        firstName: "testFirstName",
+        lastName: "testLastName",
+        message: "hola!" 
+      });
       await post1.save();
       await post2.save();
 
@@ -179,8 +228,18 @@ describe("/posts", () => {
     });
 
     test("does not return a new token", async () => {
-      const post1 = new Post({ message: "howdy!" });
-      const post2 = new Post({ message: "hola!" });
+      const post1 = new Post({ 
+        userId: "testId",
+        firstName: "testFirstName",
+        lastName: "testLastName",
+        message: "howdy!" 
+      });
+      const post2 = new Post({ 
+        userId: "testId",
+        firstName: "testFirstName",
+        lastName: "testLastName",
+        message: "hola!" 
+      });
       await post1.save();
       await post2.save();
 

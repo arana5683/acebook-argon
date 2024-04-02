@@ -12,7 +12,7 @@ const createPost = async (req, res) => {
   const { message } = req.body;
   const user = await User.findById(req.user_id);
   const post = new Post({
-    userId: user._id,
+    userId: user.id,
     firstName: user.firstName,
     lastName: user.lastName,
     message: message,
