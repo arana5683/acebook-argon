@@ -12,8 +12,8 @@ export const LoginPage = () => {
     event.preventDefault();
     try {
       const [token, userId] = await login(email, password);
-      localStorage.setItem('userId', userId)
-      localStorage.setItem('token', token)
+      localStorage.setItem("token", token);
+      localStorage.setItem("userId", userId)
       navigate("/posts");
     } catch (err) {
       console.error(err);

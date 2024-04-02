@@ -3,12 +3,28 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faThumbsUp } from '@fortawesome/free-solid-svg-icons';
 import { faThumbsDown } from '@fortawesome/free-solid-svg-icons';
 
+const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
+
 const LikeDisplay = () => {
     const [count, setCount] = useState(0)
 
-    const like = () => {
-        setCount(count + 1);
-    }
+    const like = async () => {
+        try {
+        const response = await fetch(`${BACKEND_URL}/posts/getPostId`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+        });
+        const data = await response.json();
+        console.log('Post ID:', data.postId);
+        } catch (error) {
+          console.error('Error:', error);
+        }
+      };
+        // setCount(count + 1);
+
+    
 
     const dislike = () => {
         setCount(count - 1);
@@ -26,3 +42,24 @@ const LikeDisplay = () => {
 }
 
 export default LikeDisplay;
+
+// const handleLikeButtonClick = async () => {
+//     try {
+//       const response = await fetch('/posts/like', {
+//         method: 'POST',
+//         headers: {
+//           'Content-Type': 'application/json'
+//         },
+//         // Optionally, you can send data with the request
+//         body: JSON.stringify({
+//           // Add any data needed for the backend to identify the post
+//         })
+//       });
+//       const data = await response.json();
+//       console.log('Post ID:', data.postId);
+//     } catch (error) {
+//       console.error('Error:', error);
+//     }
+//   };
+//   // In your JSX, attach the event handler to the like button
+//   <button onClick={handleLikeButtonClick}>Like</button>

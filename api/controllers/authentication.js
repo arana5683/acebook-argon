@@ -16,7 +16,6 @@ const createToken = async (req, res) => {
     const userId = user.id
     const token = generateToken(user.id);
     res.status(201).json({ token: token, userId: userId, message: "OK" });
-    
   }
 };
 
