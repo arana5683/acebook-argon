@@ -1,7 +1,7 @@
 const Post = require("../models/post");
 const { generateToken } = require("../lib/token");
 const User = require("../models/user");
-const mongoose = require('mongoose');
+
 
 const getAllPosts = async (req, res) => {
   const posts = await Post.find();
@@ -35,6 +35,7 @@ const updatePostLikes = async (req, res) => {
     if (!post.likes.includes(userId)) {
       await post.updateOne({$push: {likes: userId}});
       res.status(200).json("The post has been liked");
+
     } else {
       await post.updateOne({$pull: {likes: userId}});
       res.status(200).json("The post has been disliked");
@@ -43,6 +44,7 @@ const updatePostLikes = async (req, res) => {
     console.error('Error:', error);
     res.status(500).json({ message: 'Internal server error' });
   }
+
 };
 
 
