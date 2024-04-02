@@ -1,14 +1,17 @@
 import { render, screen } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
 import { vi } from "vitest";
 
 import { FeedPage } from "../../src/pages/Feed/FeedPage";
 import { getPosts } from "../../src/services/posts";
 import { useNavigate } from "react-router-dom";
+import { postNewPost } from "../../src/services/posts";
 
 // Mocking the getPosts service
 vi.mock("../../src/services/posts", () => {
   const getPostsMock = vi.fn();
-  return { getPosts: getPostsMock };
+  const postNewPostMock = vi.fn();
+  return { getPosts: getPostsMock, postNewPost: postNewPostMock};
 });
 
 // Mocking React Router's useNavigate function
@@ -40,5 +43,17 @@ describe("Feed Page", () => {
     render(<FeedPage />);
     const navigateMock = useNavigate();
     expect(navigateMock).toHaveBeenCalledWith("/login");
+  });
+
+  test('testing that the post form is submitted with status 201', async () => {
+    window.localStorage.setItem("token", "testToken");
+    render(<FeedPage />);
+    const button = await screen.findByRole('post-button');
+    const textArea = await screen.findByRole('textbox');
+
+    await userEvent.type(textArea, "This is a test post");
+    await userEvent.click(button);
+
+    expect(postNewPost).toHaveBeenCalled();
   });
 });
