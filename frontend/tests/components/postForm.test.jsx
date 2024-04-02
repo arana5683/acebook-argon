@@ -17,7 +17,7 @@ describe('unit testing for post form', () =>{
         const button = screen.getByRole('post-button')
         expect(button.textContent).toBe("Post!")
         expect(textArea.placeholder).toBe("What's on your mind?")
-    })
+    });
 
     test('testing that the textarea updates with users input', () => {
         render(<PostForm />)
@@ -25,7 +25,7 @@ describe('unit testing for post form', () =>{
         fireEvent.change(textArea, {target: {value: "This is a test post"}})
 
         expect(textArea.value).toBe("This is a test post")
-    })
+    });
 
     test('testing that the post form is submitted with status 201', () => {
         render(<PostForm />)
@@ -36,6 +36,6 @@ describe('unit testing for post form', () =>{
         fireEvent.click(button)
 
         expect(postNewPost).toHaveBeenCalled();
-    })
+    });
 
 })
