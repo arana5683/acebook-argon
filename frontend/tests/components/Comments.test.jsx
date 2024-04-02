@@ -26,7 +26,7 @@ describe("Comments", () => {
         const button = screen.getByRole("button");
         expect(button.textContent).toBe("Comments");
     });
-
+    
     test("The Comments component has a title", () => {
         window.localStorage.setItem("token", "testToken");
         const mockComments = [{body: "First Comment", 
@@ -35,7 +35,7 @@ describe("Comments", () => {
         userID: "ID", 
         parentID: "660155fa0a81a51974be11c8"}]
         getComments.mockResolvedValue({ comments: mockComments, token: "newToken" });
-        render(<Comments />);
+        render(<Comments parent={{_id: "Parent ID"}} showComments={true} token={"testToken"}/>);
         const title = screen.getByText("Comments:");
         expect(title.textContent).toBe("Comments:");
     });
@@ -58,13 +58,12 @@ describe("Comments", () => {
             userID: "ID"}];
         
         getComments.mockResolvedValue({ comments: mockComments });
-        render(<Comments post={{_id: "Parent ID"}} showComments={true} token={"testToken"}/>);
+        render(<Comments parent={{_id: "Parent ID"}} showComments={true} token={"testToken"}/>);
         
         waitFor(() => {
             const commenter1 = screen.getByText("Guy incognito");
             const commenter2 = screen.getByText("Larry Facebook");
             expect(commenter1.textContent).toBe("Guy incognito");
             expect(commenter2.textContent).toBe("Larry Facebook");})
-    
-        });
+    });
 })

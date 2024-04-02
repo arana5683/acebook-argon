@@ -1,6 +1,6 @@
 const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
 
-export const getComments = async (token) => {
+export const getComments = async (token, postID) => {
 const requestOptions = {
     method: "GET",
     headers: {
@@ -8,7 +8,7 @@ const requestOptions = {
     },
 };
 
-const response = await fetch(`${BACKEND_URL}/comments`, requestOptions);
+const response = await fetch(`${BACKEND_URL}/comments?postID=${postID}`, requestOptions);
 
 if (response.status !== 200) {
     throw new Error("Unable to fetch comments");

@@ -6,8 +6,6 @@ import LikeDisplay from "./LikeButton";
 const Post = (props) => {
   const [showComments, setShowComments] = useState(false)
   
-
-
   return (
     <>
     <div className="Post">
@@ -22,7 +20,7 @@ const Post = (props) => {
         </button>
       </div>
     </div>
-    {showComments && <Comments token={props.token} post={props.post} showComments={showComments}/>}
+    {showComments && <Comments token={props.token} parent={props.post} showComments={showComments}/>}
     </>
   );
 };
