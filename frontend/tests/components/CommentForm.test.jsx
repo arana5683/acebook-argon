@@ -1,5 +1,5 @@
 import { fireEvent, render, screen } from "@testing-library/react";
-import {vi, expect }from 'vitest'
+import { expect }from 'vitest'
 import CommentForm from "../../src/components/Comments/CommentForm";
 
     describe("testing comment form component", () => {

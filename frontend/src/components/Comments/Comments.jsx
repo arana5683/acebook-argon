@@ -14,7 +14,7 @@ const Comments = (props) => {
             getComments(props.token, props.parent._id).then((data) => {
                 setBackEndComments(data.comments)
             });
-        };
+        }
     };
 
     useEffect(() => {
