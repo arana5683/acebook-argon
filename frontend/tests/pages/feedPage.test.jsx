@@ -29,7 +29,7 @@ describe("Feed Page", () => {
     const mockPosts = [{ _id: "12345", message: "Test Post 1" }];
 
     getPosts.mockResolvedValue({ posts: mockPosts, token: "newToken" });
-
+    
     render(<FeedPage />);
 
     const post = await screen.findByRole("article");
