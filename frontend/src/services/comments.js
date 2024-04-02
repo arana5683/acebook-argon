@@ -17,3 +17,9 @@ console.log("Retreiving Comments")
 const data = await response.json();
 return data;
 };
+
+export const postNewComment = async (token, comment) => {
+    const standIn = [token, comment]
+    return console.log(`STAND IN RESPONSE WHILST DEV COMMENT FORM ${standIn}`)
+
+}
