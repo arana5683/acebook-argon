@@ -27,17 +27,23 @@ describe("Comments", () => {
         expect(button.textContent).toBe("Comments");
     });
     
-    test("The Comments component has a title", () => {
+    test("The Comments component has a title", async () => {
         window.localStorage.setItem("token", "testToken");
-        const mockComments = [{body: "First Comment", 
-        firstName: "Guy",
-        lastName: "incognito",
-        userID: "ID", 
-        parentID: "660155fa0a81a51974be11c8"}]
+        
+        const mockComments = [{
+            body: "First Comment", 
+            firstName: "Guy",
+            lastName: "incognito",
+            userID: "ID", 
+            parentID: "660155fa0a81a51974be11c8"}];
+        
         getComments.mockResolvedValue({ comments: mockComments, token: "newToken" });
-        render(<Comments parent={{_id: "Parent ID"}} showComments={true} token={"testToken"}/>);
-        const title = screen.getByText("Comments:");
-        expect(title.textContent).toBe("Comments:");
+        
+        render(<Comments parent={{_id: "660155fa0a81a51974be11c8"}} showComments={true} token={"testToken"}/>)
+        
+        const title = await screen.findByText("1 Comments:")
+        expect(title).toBeVisible()
+        
     });
     
     test("Multiple comments are displayed", async () => {
@@ -58,12 +64,12 @@ describe("Comments", () => {
             userID: "ID"}];
         
         getComments.mockResolvedValue({ comments: mockComments });
-        render(<Comments parent={{_id: "Parent ID"}} showComments={true} token={"testToken"}/>);
+        render(<Comments parent={{_id: "PARENT ID"}} showComments={true} token={"testToken"}/>);
         
-        waitFor(() => {
-            const commenter1 = screen.getByText("Guy incognito");
-            const commenter2 = screen.getByText("Larry Facebook");
-            expect(commenter1.textContent).toBe("Guy incognito");
-            expect(commenter2.textContent).toBe("Larry Facebook");})
+        const commenter1 = await screen.findByText("Guy incognito: First Comment");
+        const commenter2 = await screen.findByText("Larry Facebook: Nice post!");
+        expect(commenter1).toBeVisible();
+        expect(commenter2).toBeVisible();
     });
+
 })

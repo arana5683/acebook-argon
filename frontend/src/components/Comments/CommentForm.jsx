@@ -18,7 +18,7 @@ const CommentForm = (props) => {
             <textarea name="text-area" placeholder="Leave a Comment" value={text} onChange={handleChange}></textarea>
             <br></br>
             <br></br>
-            <button role = "post-button" onClick={handleComment}>Post!</button>
+            <button role = "post-button" onClick={handleComment}>Submit</button>
         </>
     )
 };
