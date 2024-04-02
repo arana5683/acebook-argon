@@ -1,9 +1,8 @@
-const Comment = () => {
+export const Comment = (props) => {
     return ( 
-        <h5>
-            Comment
+        <h5 key={props.comment._id}>
+            {props.comment.firstName} {props.comment.lastName}: {props.comment.body}
         </h5>
     );
 };
 
-export default Comment; 

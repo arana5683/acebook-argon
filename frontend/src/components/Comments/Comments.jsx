@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { getComments } from "../../services/comments";
+import { Comment } from "./Comment.jsx"
 
 const Comments = (props) => {
     const [backEndComments, setBackEndComments] = useState([])
@@ -12,9 +13,14 @@ const Comments = (props) => {
 
     return ( 
         <div className="comments">
+                <p>Comments:</p>
                 {backEndComments.map((comment) => {
                     if (comment.parentID == props.post._id) {
-                        return <h5 key={comment._id}>{comment.body}</h5>}
+                        return (
+                        <>
+                        <Comment key={comment._id} comment={comment} />
+                        </>
+                    )}
                 })}
         </div>
     )}
