@@ -25,10 +25,10 @@ export const FeedPage = () => {
     }
   }, [navigate]);
 
-  const handleNewPost = (text) => {
+  const handleNewPost = async (text) => {
     if (text.trim() !== '') {
       const formattedText = `{"message": "${text}"}`
-      postNewPost(token, JSON.parse(formattedText));
+      await postNewPost(token, JSON.parse(formattedText));
       getPosts(token)
         .then((data) => {
           setPosts(data.posts);

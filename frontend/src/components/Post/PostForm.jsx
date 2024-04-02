@@ -8,9 +8,14 @@ const PostForm = (props) => {
         setText(event.target.value);
     };
 
-    const handlePost = () => {
-        props.handleNewPost(text);
-        setText('');
+    const handlePost = async () => {
+        try {
+            await props.handleNewPost(text);
+            console.log("Creating new post...")
+            setText('');
+        } catch (err) {
+            console.error(err)
+        }
     }
 
     return(
