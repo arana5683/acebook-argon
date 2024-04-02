@@ -13,8 +13,6 @@ const PostSchema = new mongoose.Schema({
 // use to construct entries in our Database.
 const Post = mongoose.model("Post", PostSchema);
 
-const dateTimeString = new Date().toLocaleString("en-GB");
-new Post({ message: `Test message, created at ${dateTimeString}`, userId: "ni7h8ihsfkdu7hfsghh87ggiu"}).save();
 
 module.exports = Post;
 

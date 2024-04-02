@@ -23,7 +23,12 @@ describe("Post model", () => {
   });
 
   it("can save a post", async () => {
-    const post = new Post({ message: "some message", userId: "hi87hgfskuef7i" });
+    const post = new Post({ 
+        userId: "hi87hgfskuef7i",
+        firstName: "testFirstName",
+        lastName: "testLastName",
+        message: "some message"
+      });
 
     await post.save();
     const posts = await Post.find();
