@@ -16,12 +16,18 @@ const PostForm = (props) => {
     // this is triggered when user selects a file - updates file state - event.target.files 
     // represents files selected - [0] is first file.
 
-    const handlePost = () => {
+    const handlePost = async () => {
 
         
-        props.handleNewPost(text, file);
-        setText('');
-        setFile(null);
+        try {
+            await props.handleNewPost(text, file);
+            console.log("Creating new post...")
+            setText('');
+            setFile(null);
+        } catch (err) {
+            console.error(err)
+        }
+        
     };
     // resets the state to its value
 

@@ -18,7 +18,7 @@ const createPost = async (req, res) => {
   const id = uuidv4();
   // this checks if there is a file - req.file shows processed by multer
   const post = new Post({
-    userId: user._id,
+    userId: user.id,
     firstName: user.firstName,
     lastName: user.lastName,
     message: message,
