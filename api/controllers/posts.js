@@ -47,6 +47,22 @@ const updatePostLikes = async (req, res) => {
 
 };
 
+const getPostLikesArr = async (req, res) => {
+  try {
+    const postId = req.params.postId;
+    const post = await Post.findById(postId);
+    res.status(200).json({ likes: post.likes})
+
+    if (!post) {
+      return res.status(404).json({message: 'Post not found'});
+    }
+
+  } catch (error) {
+    console.error('Error:', error);
+  }
+
+}
+
 
 
 
@@ -54,6 +70,7 @@ const PostsController = {
   getAllPosts: getAllPosts,
   createPost: createPost,
   updatePostLikes: updatePostLikes,
+  getPostLikesArr: getPostLikesArr
 };
 
 

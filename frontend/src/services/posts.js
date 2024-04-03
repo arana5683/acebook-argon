@@ -59,3 +59,22 @@ export const updatePostLikesArr = async (token, likeContents) => {
   return data;
 };
 
+export const getPostLikes = async (token, postId) => {
+  console.log(postId)
+  const requestOptions = {
+    method: "GET",
+    headers: {
+      Authorization: `Bearer ${token}`
+    }
+  }
+  console.log(postId)
+  const response = await fetch(`${BACKEND_URL}/posts/${postId}/likes`, requestOptions);
+
+  if (response.status !== 200) {
+    throw new Error(`Received status ${response.status}. Unable to fetch like array.`);
+  }
+
+  const data = await response.json();
+  console.log(data.likes)
+  return data.likes;
+}
