@@ -47,13 +47,30 @@ const updatePostLikes = async (req, res) => {
 
 };
 
+const getPostLikeStatus = async (req, res) => {
+  try {
+      const postId = req.params.postId;
+      const userId = req.user_id; // Assuming the user's ID is stored in req.user_id
+      const post = await Post.findById(postId);
+      
+      if (!post) {
+          return res.status(404).json({ message: 'Post not found' });
+      }
 
+      const liked = post.likes.includes(userId);
+      res.status(200).json({ liked });
+  } catch (error) {
+      console.error('Error:', error);
+      res.status(500).json({ message: 'Internal server error' });
+  }
+};
 
 
 const PostsController = {
   getAllPosts: getAllPosts,
   createPost: createPost,
   updatePostLikes: updatePostLikes,
+  getPostLikeStatus:getPostLikeStatus
 };
 
 
