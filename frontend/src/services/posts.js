@@ -67,7 +67,7 @@ export const checkLikeStatus = async (token, content) => {
       headers: {
           Authorization: `Bearer ${token}`,
       },
-      body: JSON.stringify(content),
+      //body: JSON.stringify(content),
   });
 
   if (response.ok) {
@@ -78,7 +78,8 @@ export const checkLikeStatus = async (token, content) => {
   }
 } catch (error) {
   console.error('Error:', error);
-}}export const getPostLikes = async (token, postId) => {
+}}
+export const getPostLikes = async (token, postId) => {
   console.log(postId)
   const requestOptions = {
     method: "GET",

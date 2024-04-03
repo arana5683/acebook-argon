@@ -6,7 +6,19 @@ import { updatePostLikesArr, checkLikeStatus, getPostLikes } from "../../service
 
 const LikeDisplay = ({ postId }) => {
     const [likeState, setLikeState] = useState(false);
+    const [likeCounter, setLikeCounter] = useState(0);
 
+    const getLikeCount = async () => {
+        const token = localStorage.getItem("token");
+        console.log(postId)
+        try {
+            const likesArray = await getPostLikes(token, postId);
+            setLikeCounter(likesArray.length);
+            console.log(likeCounter)
+        } catch (error) {
+            console.error('Error with likes', error);
+        }
+    };
     useEffect(() => {
         const token = localStorage.getItem("token");
         const userId = localStorage.getItem('userId');
@@ -24,12 +36,14 @@ const LikeDisplay = ({ postId }) => {
         };
 
         fetchLikeStatus();
-    }, [postId]);
+        getLikeCount();
+        
+    }, [postId, getLikeCount]);
 
-    const [likeCounter, setLikeCounter] = useState(0)
+    
 
     useEffect(() => {
-        const token = localStorage.getItem("token");
+        // const token = localStorage.getItem("token");
         const userId = localStorage.getItem('userId');
         const postIdKey = `likeState_${userId}_${postId}`;
 
@@ -42,18 +56,7 @@ const LikeDisplay = ({ postId }) => {
 
     }, [postId]);
 
-    const getLikeCount = async () => {
-        const token = localStorage.getItem("token");
-        console.log(postId)
-        try {
-            const likesArray = await getPostLikes(token, postId);
-            console.log(typeof likesArray)
-            setLikeCounter(likesArray.length);
-            console.log(likeCounter)
-        } catch (error) {
-            console.error('Error with likes', error);
-        }
-    };
+    
 
     const updateLikes = async () => {
         const token = localStorage.getItem("token");
@@ -73,7 +76,7 @@ const LikeDisplay = ({ postId }) => {
 
     return (
         <div id="like-button-container">
-            <p role="like-counter"></p>
+            <p role="like-counter">{likeCounter}</p>
             <button
                 role="like-button"
                 style={{ margin: '5px 5px' }}

@@ -86,7 +86,7 @@ const PostsController = {
   getAllPosts: getAllPosts,
   createPost: createPost,
   updatePostLikes: updatePostLikes,
-  getPostLikeStatus:getPostLikeStatus
+  getPostLikeStatus:getPostLikeStatus,
   getPostLikesArr: getPostLikesArr
 };
 
