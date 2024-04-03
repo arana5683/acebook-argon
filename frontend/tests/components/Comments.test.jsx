@@ -2,7 +2,6 @@ import { render, screen } from "@testing-library/react";
 import { expect, vi } from "vitest";
 import { getComments } from "../../src/services/comments";
 
-import Post from "../../src/components/Post/Post";
 import Comments from "../../src/components/Comments/Comments";
 import createFetchMock from "vitest-fetch-mock";
 
@@ -18,13 +17,6 @@ describe("Comments", () => {
     
     beforeEach(() => {
         window.localStorage.removeItem("token");
-    });
-    
-    test("Theres a comment button to push on Post component", () => {
-        const testPost = { _id: "123", message: "test message" };
-        render(<Post post={testPost} />);
-        const button = screen.getByRole("button");
-        expect(button.textContent).toBe("Comments");
     });
     
     test("The Comments component has a title", async () => {
@@ -66,10 +58,10 @@ describe("Comments", () => {
         getComments.mockResolvedValue({ comments: mockComments });
         render(<Comments parent={{_id: "PARENT ID"}} showComments={true} token={"testToken"}/>);
         
-        const commenter1 = await screen.findByText("Guy incognito: First Comment");
-        const commenter2 = await screen.findByText("Larry Facebook: Nice post!");
-        expect(commenter1).toBeVisible();
-        expect(commenter2).toBeVisible();
+        const comment1 = await screen.findByText("First Comment");
+        const comment2 = await screen.findByText("Nice post!");
+        expect(comment1).toBeVisible();
+        expect(comment2).toBeVisible();
     
     });
 

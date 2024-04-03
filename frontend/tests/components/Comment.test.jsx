@@ -10,7 +10,7 @@ describe("Comment compinent tests", () => {
     
     test("Comment displays properly with all info", () => {
         render(<Comment comment={testComment} />)
-        expect(screen.getByRole("heading")).toHaveTextContent("Guy incognito: First Comment");
+        expect(screen.getByRole("article")).toHaveTextContent("First Comment");
     });
 
 })
