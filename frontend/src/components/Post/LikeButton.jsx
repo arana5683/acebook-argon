@@ -1,65 +1,101 @@
-import { useState } from "react";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faThumbsUp } from '@fortawesome/free-solid-svg-icons';
-import { faThumbsDown } from '@fortawesome/free-solid-svg-icons';
+// import { useState, useEffect } from "react";
+// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+// import { faThumbsUp, faThumbsDown } from '@fortawesome/free-solid-svg-icons';
+// import { updatePostLikesArr } from "../../services/posts";
 
-const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
-
-const LikeDisplay = () => {
-    const [count, setCount] = useState(0)
-
-    const like = async () => {
-        try {
-        const response = await fetch(`${BACKEND_URL}/posts/getPostId`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-        });
-        const data = await response.json();
-        console.log('Post ID:', data.postId);
-        } catch (error) {
-          console.error('Error:', error);
-        }
-      };
-        // setCount(count + 1);
-
+// const LikeDisplay = ({ postId }) => {
+//     const [likeState, setLikeState] = useState(() => {
     
+//         const storedLikeState = localStorage.getItem(`likeState_${postId}`);
+//         return storedLikeState === 'liked';
+//     });
 
-    const dislike = () => {
-        setCount(count - 1);
-    }
+//     const updateLikes = async () => {
+//         const token = localStorage.getItem("token");
+//         const userId = localStorage.getItem('userId');
+//         const likeDetails = { postId, userId };
 
-    // add an event listener for this button to get user id and make a put method request to backend
-    // something like handlelike
+//         try {
+//             const response = await updatePostLikesArr(token, likeDetails);
+
+//             if (response === "The post has been liked") {
+//                 setLikeState(true);
+
+//                 localStorage.setItem(`likeState_${postId}`, 'liked');
+//             } else if (response === "The post has been disliked") {
+//                 setLikeState(false);
+
+//                 localStorage.setItem(`likeState_${postId}`, 'disliked');
+//             }
+//         } catch (error) {
+//             console.error('Error:', error);
+//         }
+//     };
+
+//     return (
+//         <div id="like-button-container">
+//             <p role="like-counter"></p>
+//             <button role="like-button" style={{ margin: '5px 5px' }} onClick={updateLikes} alt="like-icon">
+//                 <FontAwesomeIcon icon={likeState ? faThumbsDown : faThumbsUp} />
+//             </button>
+//         </div>
+//     );
+// }
+
+// export default LikeDisplay;
+
+import { useState, useEffect } from "react";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faThumbsUp, faThumbsDown } from '@fortawesome/free-solid-svg-icons';
+import { updatePostLikesArr } from "../../services/posts";
+
+const LikeDisplay = ({ postId }) => {
+    const [likeState, setLikeState] = useState(false); // Initialize like state to false by default
+
+    useEffect(() => {
+        // Check if user is logged in
+        const isLoggedIn = localStorage.getItem('userId') !== null;
+
+        // Initialize like state based on user login status
+        if (isLoggedIn) {
+            // Retrieve like state from localStorage
+            const storedLikeState = localStorage.getItem(`likeState_${postId}`);
+            setLikeState(storedLikeState === 'liked');
+        } else {
+            // If user is not logged in, initialize like state to false (thumbs up)
+            setLikeState(false);
+        }
+    }, [postId]);
+
+    const updateLikes = async () => {
+        const token = localStorage.getItem("token");
+        const userId = localStorage.getItem('userId');
+        const likeDetails = { postId, userId };
+
+        try {
+            const response = await updatePostLikesArr(token, likeDetails);
+
+            // Update like state based on response
+            if (response === "The post has been liked") {
+                setLikeState(true);
+                localStorage.setItem(`likeState_${postId}`, 'liked');
+            } else if (response === "The post has been disliked") {
+                setLikeState(false);
+                localStorage.setItem(`likeState_${postId}`, 'disliked');
+            }
+        } catch (error) {
+            console.error('Error:', error);
+        }
+    };
+
     return (
         <div id="like-button-container">
-        <p role="like-counter">{count}</p>
-        <button role="like-button"style={{ margin: '5px 5px' }}onClick={like} alt="like-icon"><FontAwesomeIcon icon={faThumbsUp} /></button>
-        {count >= 1 && <button role="dislike-button" onClick={dislike} alt="dislike-icon"><FontAwesomeIcon icon={faThumbsDown} /></button>}
+            <p role="like-counter"></p>
+            <button role="like-button" style={{ margin: '5px 5px' }} onClick={updateLikes} alt="like-icon">
+                <FontAwesomeIcon icon={likeState ? faThumbsUp : faThumbsDown} />
+            </button>
         </div>
-    )
+    );
 }
 
 export default LikeDisplay;
-
-// const handleLikeButtonClick = async () => {
-//     try {
-//       const response = await fetch('/posts/like', {
-//         method: 'POST',
-//         headers: {
-//           'Content-Type': 'application/json'
-//         },
-//         // Optionally, you can send data with the request
-//         body: JSON.stringify({
-//           // Add any data needed for the backend to identify the post
-//         })
-//       });
-//       const data = await response.json();
-//       console.log('Post ID:', data.postId);
-//     } catch (error) {
-//       console.error('Error:', error);
-//     }
-//   };
-//   // In your JSX, attach the event handler to the like button
-//   <button onClick={handleLikeButtonClick}>Like</button>

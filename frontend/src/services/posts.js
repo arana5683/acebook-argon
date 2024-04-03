@@ -39,3 +39,23 @@ export const postNewPost = async (token, postContents) => {
   }
 };
 
+export const updatePostLikesArr = async (token, likeContents) => {
+  const requestOptions = {
+      method: "PUT",
+      headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-type": "application/json"
+      },
+      body: JSON.stringify(likeContents),
+  };
+
+  const response = await fetch(`${BACKEND_URL}/posts`, requestOptions);
+  const data = await response.json();
+
+  if (response.status !== 200) {
+      throw new Error(`Received status ${response.status}. Unable to update post.`);
+  }
+
+  return data;
+};
+
