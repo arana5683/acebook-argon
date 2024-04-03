@@ -59,7 +59,26 @@ export const updatePostLikesArr = async (token, likeContents) => {
   return data;
 };
 
-export const getPostLikes = async (token, postId) => {
+export const checkLikeStatus = async (token, content) => {
+  console.log(content)
+  try {
+      const response = await fetch(`${BACKEND_URL}/posts/${content.postId}/likeStatus`, {
+      method: "GET",
+      headers: {
+          Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify(content),
+  });
+
+  if (response.ok) {
+      const data = await response.json();
+      return data
+  } else {
+      throw new Error('Failed to fetch like status');
+  }
+} catch (error) {
+  console.error('Error:', error);
+}}export const getPostLikes = async (token, postId) => {
   console.log(postId)
   const requestOptions = {
     method: "GET",

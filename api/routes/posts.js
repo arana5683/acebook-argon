@@ -7,5 +7,6 @@ router.get("/", PostsController.getAllPosts);
 router.post("/", PostsController.createPost);
 router.put("/", PostsController.updatePostLikes);
 router.get('/:postId/likes', PostsController.getPostLikesArr);
+router.get('/:postId/likeStatus', PostsController.getPostLikeStatus);
 
 module.exports = router;
