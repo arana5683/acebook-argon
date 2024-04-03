@@ -1,4 +1,4 @@
-import { render, screen, waitFor } from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
 import { expect, vi } from "vitest";
 import { getComments } from "../../src/services/comments";
 
@@ -70,6 +70,7 @@ describe("Comments", () => {
         const commenter2 = await screen.findByText("Larry Facebook: Nice post!");
         expect(commenter1).toBeVisible();
         expect(commenter2).toBeVisible();
+    
     });
 
 })
