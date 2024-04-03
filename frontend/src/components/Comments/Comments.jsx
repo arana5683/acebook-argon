@@ -7,10 +7,10 @@ import CommentForm from "./CommentForm.jsx"
 const Comments = (props) => {
     const [backEndComments, setBackEndComments] = useState([])
     
-    const handleNewComment = (text) => {
+    const handleNewComment = async (text) => {
         if (text.trim() !== '') {
             const formattedText = `{"body": "${text}", "parentId": "${props.parent._id}"}`
-            postNewComment(props.token, JSON.parse(formattedText));
+            await postNewComment(props.token, JSON.parse(formattedText));
             getComments(props.token, props.parent._id).then((data) => {
                 setBackEndComments(data.comments)
             });
@@ -24,7 +24,7 @@ const Comments = (props) => {
     }, [props.token, props.parent._id]);
 
     return ( 
-        <div className="comments">
+        <div className="Comments">
                 <CommentForm handleNewComment={handleNewComment}/>
                 <p>{backEndComments.length} Comments:</p>
                 {props.showComments && backEndComments.map((comment) => {

@@ -1,0 +1,10 @@
+.Comment {
+    display: grid;
+    grid-template-columns: repeat(3, auto); /* Use auto columns */
+    gap: 10px; /* Adjust the gap between grid items */
+    outline: 1px solid black;
+    margin: 1px;
+    border-radius: 10px;
+    padding: 10px;
+    max-width: 600px;
+}

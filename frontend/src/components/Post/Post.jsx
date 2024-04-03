@@ -3,6 +3,9 @@ import PostingUser from "./PostingUser";
 import { useState } from "react";
 import "./Post.css"
 import LikeDisplay from "./LikeButton";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faComments } from '@fortawesome/free-solid-svg-icons';
+
 const Post = (props) => {
   const [showComments, setShowComments] = useState(false)
   
@@ -12,11 +15,10 @@ const Post = (props) => {
       <PostingUser id="item-left" post={props.post}/>
       <article id="item-wide" className="testContent" key={props.post._id}>{props.post.message}</article> <br></br>
       <LikeDisplay  id="item-right"/>
-      
       <div>
-        <button onClick={() => {
+        <button title="comments-button" onClick={() => {
           setShowComments(!showComments)}}
-            >Comments
+        ><FontAwesomeIcon icon={faComments} />
         </button>
       </div>
     </div>
