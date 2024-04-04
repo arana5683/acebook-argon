@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { getUser } from "../../services/users";
+import { getPostsForUser } from "../../services/posts";
 import { NavBar } from "../../components/NavBar";
 import Post from "../../components/Post/Post";
 
@@ -9,10 +10,10 @@ export const ProfilePage = () => {
     const [user, setUser] = useState({})
     const [posts, setPosts] = useState([])
 
-
     useEffect(() => {
         const token = localStorage.getItem("token");
         if (token) {
+            
             getUser(token)
             .then((data) => {
                 setUser(data.user);
@@ -22,7 +23,16 @@ export const ProfilePage = () => {
                 console.error(err);
                 navigate("/login");
             });
-        }
+            
+            getPostsForUser(token)
+            .then((data) => {
+                setPosts(data.posts);
+                localStorage.setItem("token", data.token)
+            .catch((err) => {
+                console.error(err);
+                navigate("/login");
+            });
+        })}
     }, [navigate])
 
     const token = localStorage.getItem("token");
