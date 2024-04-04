@@ -34,7 +34,6 @@ describe('unit testing for post form', () =>{
 
         fireEvent.change(textArea, {target: {value: "This is a test post"}})
         fireEvent.click(button)
-
         expect(postNewPost).toHaveBeenCalled();
     })
 

@@ -66,7 +66,7 @@ const getPostLikesArr = async (req, res) => {
 const getPostLikeStatus = async (req, res) => {
   try {
       const postId = req.params.postId;
-      const userId = req.user_id; // Assuming the user's ID is stored in req.user_id
+      const userId = req.user_id;
       const post = await Post.findById(postId);
       
       if (!post) {

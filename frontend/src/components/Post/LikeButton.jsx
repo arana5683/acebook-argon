@@ -2,7 +2,6 @@ import { useState, useEffect } from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faThumbsUp, faThumbsDown } from '@fortawesome/free-solid-svg-icons';
 import { updatePostLikesArr, checkLikeStatus, getPostLikes } from "../../services/posts";
-// import { get } from "../../../../api/routes/posts";
 
 const LikeDisplay = ({ postId }) => {
     const [likeState, setLikeState] = useState(false);
@@ -10,11 +9,9 @@ const LikeDisplay = ({ postId }) => {
 
     const getLikeCount = async () => {
         const token = localStorage.getItem("token");
-        console.log(postId)
         try {
             const likesArray = await getPostLikes(token, postId);
             setLikeCounter(likesArray.length);
-            console.log(likeCounter)
         } catch (error) {
             console.error('Error with likes', error);
         }
@@ -33,16 +30,14 @@ const LikeDisplay = ({ postId }) => {
                 console.error('Error fetching like status:', error);
             }
         };
-        console.log('I have been called')
         fetchLikeStatus();
         getLikeCount();
         
     });
-
+    // we have deleted the dependency array from above line, if something breaks, try readding it to debug
     
 
     useEffect(() => {
-        
         const userId = localStorage.getItem('userId');
         const postIdKey = `likeState_${userId}_${postId}`;
         const storedLikeState = localStorage.getItem(postIdKey);
@@ -73,7 +68,7 @@ const LikeDisplay = ({ postId }) => {
 
     return (
         <div id="like-button-container">
-            <p role="like-counter">{likeCounter}</p>
+            <p role="like-counter">Likes: {likeCounter}</p>
             <button
                 role="like-button"
                 style={{ margin: '5px 5px' }}

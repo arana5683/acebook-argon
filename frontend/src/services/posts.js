@@ -55,7 +55,7 @@ export const updatePostLikesArr = async (token, likeContents) => {
   if (response.status !== 200) {
       throw new Error(`Received status ${response.status}. Unable to update post.`);
   }
-
+  console.log(data)
   return data;
 };
 
