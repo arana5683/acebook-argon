@@ -20,8 +20,15 @@ const PostForm = (props) => {
 
         
         try {
-            await props.handleNewPost(text, file);
+            let formData = new FormData();
+            formData.append('message', text);
+            if (file) {
+                formData.append('image', file);
+            }
+            console.log('formData',formData, 'text', text)
+            await props.handleNewPost(formData);
             console.log("Creating new post...")
+            console.log(file)
             setText('');
             setFile(null);
         } catch (err) {
@@ -31,13 +38,17 @@ const PostForm = (props) => {
     };
     // resets the state to its value
 
-    return(
+    return (
         <>
+            <form onSubmit={(event) => { event.preventDefault(); handlePost(); }}>
             <textarea name="text-area" placeholder="What's on your mind?" value={text} onChange={handleChange}></textarea>
-            <input type="file" accept="image/png, image/jpeg" onChange={handleFileChange} />
-            <button role = "post-button" onClick={handlePost}>Post!</button>
+            <input type="file" accept="image/*" onChange={handleFileChange} />
+            <button type="submit" role="post-button">Post!</button>
+        </form>
+            
         </>
     )
 };
 
 export default PostForm;
+

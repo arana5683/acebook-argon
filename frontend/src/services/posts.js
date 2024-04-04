@@ -21,15 +21,17 @@ export const getPosts = async (token) => {
 };
 
 export const postNewPost = async (token, postContents) => {
+  console.log(postContents.get('message'), postContents.get('image'))
+  // console.log(postContents)
   const requestOptions = {
     method: "POST",
     headers: {
       Authorization: `Bearer ${token}`,
-      "Content-type": "application/json"
     },
-    body: JSON.stringify(postContents),
-  };
+    body: postContents
+  }
 
+  // JSON.stringify({ message: postContents.get('message'), image: postContents.get('image')
   const response = await fetch(`${BACKEND_URL}/posts`, requestOptions);
   
   if (response.status !== 201) {
@@ -37,5 +39,14 @@ export const postNewPost = async (token, postContents) => {
     throw new Error(
       `Received status ${response.status}. Expected 201. Unable to create post.`)
   }
-};
+}
 
+// const postNewImagePost = async (token, postContents) => {
+//   const requestOptions = {
+//     method: "GET",
+//     headers: {
+//       Authorization: `Bearer ${token}`,
+//       "Content-type": "multipart/form-data"
+//     },
+//     body: postContents.get('image')
+//   }};

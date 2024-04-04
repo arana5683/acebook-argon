@@ -7,6 +7,7 @@ import { NavBar } from "../../components/NavBar";
 import PostForm from "../../components/Post/PostForm";
 import { postNewPost } from "../../services/posts";
 
+
 export const FeedPage = () => {
   const [posts, setPosts] = useState([]);
   const navigate = useNavigate();
@@ -26,22 +27,24 @@ export const FeedPage = () => {
     }
   }, [navigate]);
 
-  const handleNewPost = async (text) => {
-    if (text.trim() !== '') {
-      const formattedText = `{"message": "${text}"}`
-      await postNewPost(token, JSON.parse(formattedText));
+
+  const handleNewPost = async (formData) => {
+    // formData = { message: 'some text', image: 'image.png' }
+
+    console.log(formData)
+      await postNewPost(token, formData);
       getPosts(token)
         .then((data) => {
           setPosts(data.posts);
           localStorage.setItem("token", data.token);
         })
+      
         .catch((err) => {
           console.error(err);
           navigate("/login");
         });
-    }
+    
   }
-
 
   const token = localStorage.getItem("token");
   if (!token) {
