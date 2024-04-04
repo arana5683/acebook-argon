@@ -7,7 +7,8 @@ const PostSchema = new mongoose.Schema({
   firstName: { type: String },
   lastName: { type: String },
   message: { type: String },
-  image: { type: String },
+  image: { type: String},
+  dateTime: { type: Number, default: Date.now },
 });
 
 // We use the Schema to create the Post model. Models are classes which we can
@@ -22,3 +23,4 @@ new Post ({
 }).save()
 
 module.exports = Post;
+

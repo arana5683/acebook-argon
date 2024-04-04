@@ -5,9 +5,22 @@ const User = require("../models/user");
 const { v4: uuidv4 } = require('uuid');
 
 const getAllPosts = async (req, res) => {
-  const posts = await Post.find();
-  const token = generateToken(req.user_id);
-  res.status(200).json({ posts: posts, token: token });
+  try {
+  
+    const token = generateToken(req.user_id);
+      
+    if (req.query.profile == "true") {
+        const posts = await Post.find({userId: req.user_id}).sort({dateTime: -1})
+        res.status(200).json({ posts: posts, token: token });
+    } else {
+        const posts = await Post.find().sort({dateTime: -1});
+        res.status(200).json({ posts: posts, token: token });
+    }
+  
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Internal server error" });
+  }
 };
 
 
