@@ -176,5 +176,36 @@ describe("/posts", () => {
         expect(response.body.token).toEqual(undefined);
       });
     });
+  
+    describe("Get with query parameter", () => {
+      beforeAll(async () => {
+        const user2 = new User({
+          firstName: "testFirstName",
+          lastName: "testLastName",
+          email: "post-test@test.com",
+          password: "12345678",
+        });
+        await user2.save();
+        
+        const postToFind = new Post({ 
+          userId: `${user2.id}`,
+          firstName: "testFirstName",
+          lastName: "testLastName",
+          message: "Post" 
+        });
+        await postToFind.save()
+        newToken = createToken(user2.id);
+      })
+        
+      test("returns some posts with parameter set to true, not all posts", async () => {
+        
+        const response = await request(app)
+          .get("/posts?profile=true")
+          .set("Authorization", `Bearer ${newToken}`);
+        const thePost = response.body.posts;
+        expect(thePost[0].message).toEqual("Post")
+
+      });
+    });
   });
 });
