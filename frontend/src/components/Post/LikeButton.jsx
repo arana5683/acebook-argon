@@ -19,11 +19,10 @@ const LikeDisplay = ({ postId }) => {
             console.error('Error with likes', error);
         }
     };
+
     useEffect(() => {
         const token = localStorage.getItem("token");
         const userId = localStorage.getItem('userId');
-
-        // Fetching like status for posts
         const fetchLikeStatus = async () => {
             if (!token || !userId) return;
 
@@ -43,10 +42,9 @@ const LikeDisplay = ({ postId }) => {
     
 
     useEffect(() => {
-        // const token = localStorage.getItem("token");
+        
         const userId = localStorage.getItem('userId');
         const postIdKey = `likeState_${userId}_${postId}`;
-
         const storedLikeState = localStorage.getItem(postIdKey);
         if (storedLikeState === 'liked') {
             setLikeState(true);
@@ -62,7 +60,6 @@ const LikeDisplay = ({ postId }) => {
         const token = localStorage.getItem("token");
         const userId = localStorage.getItem('userId');
         const postIdKey = `likeState_${userId}_${postId}`;
-
         try {
             const response = await updatePostLikesArr(token, { postId, userId });
             setLikeState(response === "The post has been liked");
