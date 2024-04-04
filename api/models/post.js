@@ -6,7 +6,8 @@ const PostSchema = new mongoose.Schema({
   userId: { type: String, required: true },
   firstName: { type: String, required: true},
   lastName: { type: String, required: true},
-  message: { type: String, required: true },
+  message: { type: String, required: true},
+  dateTime: { type: Number, default: Date.now },
   likes: {type: Array, default: []}
 });
 
@@ -16,3 +17,4 @@ const Post = mongoose.model("Post", PostSchema);
 
 
 module.exports = Post;
+

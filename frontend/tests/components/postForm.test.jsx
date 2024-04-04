@@ -1,28 +1,22 @@
-import { fireEvent, render, screen } from "@testing-library/react";
-import {vi, expect }from 'vitest'
+import { render, screen } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
+import { expect }from 'vitest'
 import PostForm from  "../../src/components/Post/PostForm";
-import {postNewPost} from "../../src/services/posts";
-
-// Mocking postNewPost function with vitest
-vi.mock('../../src/services/posts', () => {
-    const postNewPostMock = vi.fn();
-    return {postNewPost: postNewPostMock}
-})
 
 describe('unit testing for post form', () =>{
 
     test('testing that the textarea renders', () => {
-        render(<PostForm />)
-        const textArea = screen.getByRole('textbox')
-        const button = screen.getByRole('post-button')
-        expect(button.textContent).toBe("Post!")
-        expect(textArea.placeholder).toBe("What's on your mind?")
-    })
+        render(<PostForm />);
+        const textArea = screen.getByRole('textbox');
+        const button = screen.getByRole('post-button');
+        expect(button.textContent).toBe("Post!");
+        expect(textArea.placeholder).toBe("What's on your mind?");
+    });
 
-    test('testing that the textarea updates with users input', () => {
+    test('testing that the textarea updates with users input', async () => {
         render(<PostForm />)
         const textArea = screen.getByRole('textbox')
-        fireEvent.change(textArea, {target: {value: "This is a test post"}})
+        await userEvent.type(textArea, "This is a test post");
 
         expect(textArea.value).toBe("This is a test post")
     })
