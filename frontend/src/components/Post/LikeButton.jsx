@@ -33,11 +33,11 @@ const LikeDisplay = ({ postId }) => {
                 console.error('Error fetching like status:', error);
             }
         };
-
+        console.log('I have been called')
         fetchLikeStatus();
         getLikeCount();
         
-    }, [postId, getLikeCount]);
+    });
 
     
 
