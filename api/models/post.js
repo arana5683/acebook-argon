@@ -6,7 +6,8 @@ const PostSchema = new mongoose.Schema({
   userId: { type: String, required: true },
   firstName: { type: String, required: true},
   lastName: { type: String, required: true},
-  message: { type: String, required: true },
+  message: { type: String, required: true},
+  dateTime: { type: Number, default: Date.now },
 });
 
 // We use the Schema to create the Post model. Models are classes which we can
@@ -15,3 +16,4 @@ const Post = mongoose.model("Post", PostSchema);
 
 
 module.exports = Post;
+

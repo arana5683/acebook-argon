@@ -3,6 +3,8 @@ const { generateToken } = require("../lib/token");
 const User = require("../models/user");
 
 const getAllPosts = async (req, res) => {
+  try {
+  const posts = await Post.find().sort({dateTime: -1});
   const token = generateToken(req.user_id);
   if (req.query.profile == "true") {
     const posts = await Post.find({userId: req.user_id})
@@ -11,7 +13,11 @@ const getAllPosts = async (req, res) => {
     const posts = await Post.find();
     res.status(200).json({ posts: posts, token: token });
   }
-};
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+  };
 
 const createPost = async (req, res) => {
   const { message } = req.body;
