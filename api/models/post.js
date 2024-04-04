@@ -13,6 +13,12 @@ const PostSchema = new mongoose.Schema({
 // We use the Schema to create the Post model. Models are classes which we can
 // use to construct entries in our Database.
 const Post = mongoose.model("Post", PostSchema);
-
+new Post ({
+  userId: "1",
+  firstName: "Ree",
+  lastName: "Lanise",
+  message: "Yo",
+  image: ""
+}).save()
 
 module.exports = Post;

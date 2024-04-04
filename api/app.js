@@ -7,6 +7,7 @@ const postsRouter = require("./routes/posts");
 const authenticationRouter = require("./routes/authentication");
 const tokenChecker = require("./middleware/tokenChecker");
 
+const path = require('path');
 const app = express();
 
 // Allow requests from any client
@@ -21,7 +22,8 @@ app.use(bodyParser.json());
 app.use("/users", usersRouter);
 app.use("/posts", tokenChecker, postsRouter);
 app.use("/tokens", authenticationRouter);
-app.use("/uploads", express.static("uploads"));
+// routes is now correctly defined before it was just /uploads but /uploads is in the middleware folder
+app.use("/uploads", express.static(path.join(__dirname, 'middleware', 'uploads')));
 
 // 404 Handler
 app.use((_req, res) => {

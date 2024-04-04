@@ -1,6 +1,7 @@
 // imports multer library
 const multer = require('multer');
 const { v4: uuidv4 } = require('uuid');
+const path = require('path');
 
 // diskStorage is used to set up storage for uploaded files
 // it takes the request, represents the file given and creates a callback (cb) function
@@ -9,7 +10,7 @@ const { v4: uuidv4 } = require('uuid');
 var uniqueId = uuidv4();
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
-        cb(null, 'uploads/');
+        cb(null, path.resolve(__dirname, 'uploads'));
 },
 
 // here we create a unique id that is used to name the file - so that files do not override eachother
@@ -18,18 +19,18 @@ const storage = multer.diskStorage({
     }
 });
 
-const fileFilter = (req, file, cb) => {
-    if (file.mimetype === "image/jpeg" || file.mimetype === "image/png") {
-        cb(null, true);
-    } else {
-        cb(null, false);
-    }
-};
+// const fileFilter = (req, file, cb) => {
+//     if (file.mimetype === "image/jpeg" || file.mimetype === "image/png") {
+//         cb(null, true);
+//     } else {
+//         cb(null, false);
+//     }
+// };
 
 
 const upload = multer({ 
     storage: storage,
-    fileFilter: fileFilter,
+    // fileFilter: fileFilter,
 });
 
 module.exports = upload;

@@ -12,9 +12,13 @@ const getAllPosts = async (req, res) => {
 
 
 const createPost = async (req, res) => {
+
   const { message } = req.body;
   const user = await User.findById(req.user_id);
+  console.log('createPost get req.file', req.file)
   const imagePath = req.file ? `/uploads/${req.file.filename}` : undefined;
+  
+
   const id = uuidv4();
   // this checks if there is a file - req.file shows processed by multer
   const post = new Post({
@@ -24,10 +28,11 @@ const createPost = async (req, res) => {
     message: message,
     image: imagePath
   })
-  post.save();
+  await post.save();
   const newToken = generateToken(req.user_id);
-  res.status(201).json({ message: "Post created", token: newToken });
+  res.status(201).json({ message: "Post created", token: newToken, image: "Image Uploaded"});
 };
+
 
 const PostsController = {
   getAllPosts: getAllPosts,
