@@ -10,4 +10,10 @@ describe("Post", () => {
     const article = screen.getByRole("article");
     expect(article.textContent).toBe("test message");
   });
+
+  test("Theres a comment button to push on Post component", () => {
+    const testPost = { _id: "123", message: "test message" };
+    render(<Post post={testPost} />);
+    expect(screen.getByTitle("comments-button")).toBeVisible();
+  });
 });
