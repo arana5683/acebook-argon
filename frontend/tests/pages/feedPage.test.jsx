@@ -14,6 +14,12 @@ vi.mock("../../src/services/posts", () => {
   return { getPosts: getPostsMock, postNewPost: postNewPostMock};
 });
 
+// Mocking the isUserFollowed service
+vi.mock("../../src/services/users", () => {
+  const isUserFollowedMock = vi.fn();
+  return { isUserFollowed: isUserFollowedMock };
+});
+
 // Mocking React Router's useNavigate function
 vi.mock("react-router-dom", () => {
   const navigateMock = vi.fn();
