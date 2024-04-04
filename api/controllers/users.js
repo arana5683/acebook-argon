@@ -37,9 +37,52 @@ const getUser = async (req, res) => {
   })
 }
 
+const followUser = async (req, res) => {
+  if (req.user_id !== req.body.targetId) {
+    try {
+      const currentUser = await User.findById(req.user_id);
+      const targetUser = await User.findById(req.body.targetId);
+    if (!currentUser.following.includes(targetUser._id)) {
+      await currentUser.updateOne( { $push: { following: targetUser._id } });
+      const newToken = generateToken(req.user_id);
+      res.status(200).json({ message: "Following user", token: newToken });
+    } else {
+      await currentUser.updateOne( { $pull: { following: targetUser._id } });
+      const newToken = generateToken(req.user_id);
+      res.status(200).json({ message: "User unfollowed", token: newToken });
+    }
+    } catch (err) {
+      res.status(500).json(err);
+    }
+  } else {
+    res.status(403).json("Cannot follow yourself");
+  }
+}
+
+const isUserFollowed = async (req, res) => {
+  const newToken = generateToken(req.user_id);
+  if (req.user_id !== req.query.targetId) {
+    try {
+      const currentUser = await User.findById(req.user_id);
+      const targetUser = await User.findById(req.query.targetId);
+    if (currentUser.following.includes(targetUser._id)) {
+      res.status(200).json({ followed: true, token: newToken });
+    } else {
+      res.status(200).json({ followed: false, token: newToken });
+    }
+    } catch (err) {
+      res.status(500).json(err);
+    }
+  } else {
+    res.status(200).json({ self: true, token: newToken });
+  }
+}
+
 const UsersController = {
   create: create,
-  getUser: getUser
+  getUser: getUser,
+  followUser: followUser,
+  isUserFollowed: isUserFollowed
 };
 
 module.exports = UsersController;
