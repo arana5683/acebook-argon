@@ -3,9 +3,14 @@ const { generateToken } = require("../lib/token");
 const User = require("../models/user");
 
 const getAllPosts = async (req, res) => {
-  const posts = await Post.find();
   const token = generateToken(req.user_id);
-  res.status(200).json({ posts: posts, token: token });
+  if (req.query.profile == "true") {
+    const posts = await Post.find({userId: req.user_id})
+    res.status(200).json({ posts: posts, token: token });
+  } else {
+    const posts = await Post.find();
+    res.status(200).json({ posts: posts, token: token });
+  }
 };
 
 const createPost = async (req, res) => {

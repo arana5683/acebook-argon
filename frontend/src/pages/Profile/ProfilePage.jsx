@@ -28,12 +28,12 @@ export const ProfilePage = () => {
             .then((data) => {
                 setPosts(data.posts);
                 localStorage.setItem("token", data.token)
+            })
             .catch((err) => {
                 console.error(err);
                 navigate("/login");
             });
-        })}
-    }, [navigate])
+        }}, [navigate])
 
     const token = localStorage.getItem("token");
     if (!token) {
