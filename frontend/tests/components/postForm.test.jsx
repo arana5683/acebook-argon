@@ -20,4 +20,15 @@ describe('unit testing for post form', () =>{
 
         expect(textArea.value).toBe("This is a test post");
     });
+
+    // test('testing image upload', async () => {
+    //     render(<PostForm />);
+        
+    //     const file = new File(['test-image'], 'test-image.png', { type: 'image/png' });
+    //     const input = screen.getAllByLabelText("test");
+    //     console.log(input.files)
+    //     await userEvent.upload(input, file);
+
+    //     expect(input.files[0]).toBe(file);
+    // });
 });

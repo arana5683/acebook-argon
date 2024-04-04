@@ -42,7 +42,7 @@ const PostForm = (props) => {
         <>
             <form onSubmit={(event) => { event.preventDefault(); handlePost(); }}>
             <textarea name="text-area" placeholder="What's on your mind?" value={text} onChange={handleChange}></textarea>
-            <input type="file" accept="image/*" onChange={handleFileChange} />
+            <input label="test" type="file" accept="image/*" onChange={handleFileChange} />
             <button type="submit" role="post-button">Post!</button>
         </form>
             

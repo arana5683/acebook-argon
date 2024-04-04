@@ -4,6 +4,8 @@ const JWT = require("jsonwebtoken");
 const app = require("../../app");
 const Post = require("../../models/post");
 const User = require("../../models/user");
+const fs = require('fs');
+const path = require('path');
 
 require("../mongodb_helper");
 
@@ -247,5 +249,54 @@ describe("/posts", () => {
 
       expect(response.body.token).toEqual(undefined);
     });
+
+    test("test if post has image, without token", async () => {
+      const post1 = new Post({ 
+        userId: "testId",
+        firstName: "testFirstName",
+        lastName: "testLastName",
+        message: "howdy!", 
+        imagePath: "/uploads/0c1cbe94-0240-439b-b1f4-8386d92a7d16smiley.png"
+      });
+      // const post2 = new Post({ 
+      //   userId: "testId",
+      //   firstName: "testFirstName",
+      //   lastName: "testLastName",
+      //   message: "hola!",
+      //   imagePath: "/uploads/2c3b19af-d329-4382-a80b-b14c474e6be5black_panther.jpeg"
+      // });
+      await post1.save();
+      // await post2.save();
+
+      const response = await request(app).get("/posts");
+
+      
+        expect(response.imagePath).toBeUndefined();
+    });
+
+    test("test if post has image, with token", async () => {
+      const imagePath = '/Users/jesstodd/Documents/Makers/SOFTWARE-DEVELOPMENT/acebook-argon/api/middleware/uploads/0c1cbe94-0240-439b-b1f4-8386d92a7d16smiley.png';
+      // let imgFile = fs.readFileSync(imagePath)
+      // let fileStr = imgFile.toString('base64')
+      const post1 = new Post({ 
+        userId: "testId",
+        firstName: "testFirstName",
+        lastName: "testLastName",
+        message: "howdy!", 
+        image: "/uploads/1b240fea-8aee-45b4-9a72-1c5df06835f5smiley.png"})
+      
+      await post1.save();
+
+      const response = await request(app)
+        .get("/posts")
+        .set("Authorization", `Bearer ${token}`);
+        
+        
+        expect(response.status).toEqual(200);
+        expect(response.body.posts[0].image).toEqual("/uploads/1b240fea-8aee-45b4-9a72-1c5df06835f5smiley.png");
+    });
   });
-});
+
+  });
+
+
