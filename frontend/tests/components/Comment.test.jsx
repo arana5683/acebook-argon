@@ -1,5 +1,12 @@
 import {Comment} from "../../src/components/Comments/Comment.jsx";
 import { render, screen } from "@testing-library/react";
+import { vi } from "vitest";
+
+// Mocking the isUserFollowed service
+vi.mock("../../src/services/users", () => {
+    const isUserFollowedMock = vi.fn();
+    return { isUserFollowed: isUserFollowedMock };
+});
 
 describe("Comment compinent tests", () => {
     const testComment = {body: "First Comment", 

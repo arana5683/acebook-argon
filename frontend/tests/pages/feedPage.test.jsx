@@ -1,17 +1,23 @@
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { vi } from "vitest";
-
 import { FeedPage } from "../../src/pages/Feed/FeedPage";
 import { getPosts } from "../../src/services/posts";
 import { useNavigate } from "react-router-dom";
 import { postNewPost } from "../../src/services/posts";
+import { getFollowedUsers } from "../../src/services/users";
 
 // Mocking the getPosts service
 vi.mock("../../src/services/posts", () => {
   const getPostsMock = vi.fn();
   const postNewPostMock = vi.fn();
   return { getPosts: getPostsMock, postNewPost: postNewPostMock};
+});
+
+// Mocking the getFollowedUsers service
+vi.mock("../../src/services/users", () => {
+  const getFollowedUsersMock = vi.fn();
+  return { getFollowedUsers: getFollowedUsersMock };
 });
 
 // Mocking React Router's useNavigate function
@@ -24,6 +30,7 @@ vi.mock("react-router-dom", () => {
 describe("Feed Page", () => {
   beforeEach(() => {
     window.localStorage.removeItem("token");
+    getFollowedUsers.mockResolvedValue({ users: ["testUser1", "testUser2"], token: "newToken" });
   });
 
   test("It displays posts from the backend", async () => {
