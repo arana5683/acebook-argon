@@ -20,6 +20,8 @@ background-color: #1877f2;
 cursor: pointer;
 
 }
+#posting-button{size: 10px;
+width:50px;}
 
 nav button:hover {
     background-color: #a6c5ef;
