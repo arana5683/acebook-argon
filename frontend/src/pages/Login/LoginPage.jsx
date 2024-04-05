@@ -11,8 +11,9 @@ export const LoginPage = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      const token = await login(email, password);
+      const [token, userId] = await login(email, password);
       localStorage.setItem("token", token);
+      localStorage.setItem("userId", userId)
       navigate("/posts");
     } catch (err) {
       console.error(err);
@@ -35,6 +36,7 @@ export const LoginPage = () => {
         <label htmlFor="email">Email:</label>
         <input
           id="email"
+          placeholder="Email"
           type="text"
           value={email}
           onChange={handleEmailChange}
@@ -42,6 +44,7 @@ export const LoginPage = () => {
         <label htmlFor="password">Password:</label>
         <input
           id="password"
+          placeholder="Password"
           type="password"
           value={password}
           onChange={handlePasswordChange}

@@ -8,6 +8,7 @@ const PostSchema = new mongoose.Schema({
   lastName: { type: String, required: true},
   message: { type: String, required: true},
   dateTime: { type: Number, default: Date.now },
+  likes: {type: Array, default: []}
 });
 
 // We use the Schema to create the Post model. Models are classes which we can
