@@ -5,9 +5,11 @@ import Post from "../../components/Post/Post";
 import { NavBar } from "../../components/NavBar";
 import PostForm from "../../components/Post/PostForm";
 import { postNewPost } from "../../services/posts";
+import { followUser, getFollowedUsers } from "../../services/users";
 
 export const FeedPage = () => {
   const [posts, setPosts] = useState([]);
+  const [followedUsers, setFollowedUsers] = useState([]);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -22,6 +24,10 @@ export const FeedPage = () => {
           console.error(err);
           navigate("/login");
         });
+      getFollowedUsers(token)
+      .then((data) => {
+        setFollowedUsers(data.users);
+      });
     }
   }, [navigate]);
 
@@ -41,6 +47,19 @@ export const FeedPage = () => {
     }
   }
 
+  const handleFollow = async (targetId) => {
+    try {
+      const token = localStorage.getItem("token");
+      await followUser(token, targetId);
+      getFollowedUsers(token)
+      .then((data) => {
+        setFollowedUsers(data.users);
+      });
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
   const token = localStorage.getItem("token");
   if (!token) {
     navigate("/login");
@@ -54,7 +73,7 @@ export const FeedPage = () => {
       <h2>Posts</h2>
       <div className="feed" role="feed">
         {posts.map((post) => (
-          <Post post={post} key={post._id} token={token} />
+          <Post post={post} key={post._id} token={token} followedUsers={followedUsers} handleFollow={handleFollow}/>
         ))}
       </div>
     </>

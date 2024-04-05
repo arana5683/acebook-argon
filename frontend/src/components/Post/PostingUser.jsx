@@ -1,45 +1,34 @@
 import "./PostingUser.css"
-import { followUser, isUserFollowed } from "../../services/users";
 import { useEffect, useState } from "react";
 
-const PostingUser = ({post}) => {
+const PostingUser = (props) => {
   const [ following, setFollowing ] = useState(false);
-  const [ self, setSelf ] = useState(false);
+  // const [ self, setSelf ] = useState(false);
 
   useEffect(() => {
     try {
-      const token = localStorage.getItem("token");
-      const targetId = post.userId;
-      isUserFollowed(token, targetId)
-      .then((res) => {
-        if (res.self)
-          setSelf(true);
-        else {
-          setFollowing(res.followed);
-          setSelf(false);
-        }
-      });
+      if (props.followedUsers.includes(props.post.userId)) {
+        console.log("setting following to true")
+        setFollowing(true);
+      }
+      else {
+        console.log("setting following to false")
+        setFollowing(false);
+      }
     } catch (err) {
       console.log(err);
     }
-  }, [post.userId]);
+  }, [props.post.userId, props.followedUsers]);
 
-  const handleFollow = async () => {
-    try {
-      const token = localStorage.getItem("token");
-      const targetId = post.userId;
-      await followUser(token, targetId);
-      setFollowing(!following);
-    } catch (err) {
-      console.log(err);
-    }
+  const handleFollowUser = async () => {
+    await props.handleFollow(props.post.userId);
   }
   
   return (
     <div className="PostingUser">
-    <div className="name">{post.firstName} {post.lastName}</div>
+    <div className="name">{props.post.firstName} {props.post.lastName}</div>
     <img className="profilePicture"src = "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_640.png"></img>
-    <div className="followButton">{!self && <button onClick={ handleFollow }>{following ? "Unfollow" : "Follow" }</button>}</div>
+    <div className="followButton"><button onClick={ handleFollowUser }>{following ? "Unfollow" : "Follow" }</button></div>
     </div>
   );
 };

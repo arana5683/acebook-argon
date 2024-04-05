@@ -59,7 +59,7 @@ export const unfollowUser = async (token, targetId) => {
   }
 }
 
-export const isUserFollowed = async (token, targetId) => {
+export const getFollowedUsers = async (token) => {
   const requestOptions = {
     method: "GET",
     headers: {
@@ -67,12 +67,12 @@ export const isUserFollowed = async (token, targetId) => {
     },
   };
 
-  const response = await fetch(`${BACKEND_URL}/users/following?targetId=${targetId}`, requestOptions);
+  const response = await fetch(`${BACKEND_URL}/users/follow`, requestOptions);
   
   if (response.status !== 200) {
     console.log(response.status);
     throw new Error(
-      `Received status ${response.status}. Expected 200. Unable to check if user is already followed.`);
+      `Received status ${response.status}. Expected 200. Unable to get followed users.`);
   }
 
   const data = await response.json();
