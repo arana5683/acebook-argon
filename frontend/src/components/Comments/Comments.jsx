@@ -9,7 +9,7 @@ const Comments = (props) => {
     
     const handleNewComment = async (text) => {
         if (text.trim() !== '') {
-            const formattedText = `{"body": "${text}", "parentId": "${props.parent._id}"}`
+            const formattedText = `{"body": "${text.trim()}", "parentId": "${props.parent._id}"}`
             await postNewComment(props.token, JSON.parse(formattedText));
             getComments(props.token, props.parent._id).then((data) => {
                 setBackEndComments(data.comments)

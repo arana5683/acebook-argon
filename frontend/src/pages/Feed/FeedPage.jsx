@@ -27,7 +27,7 @@ export const FeedPage = () => {
 
   const handleNewPost = async (text) => {
     if (text.trim() !== '') {
-      const formattedText = `{"message": "${text}"}`
+      const formattedText = `{"message": "${text.trim()}"}`
       await postNewPost(token, JSON.parse(formattedText));
       getPosts(token)
         .then((data) => {
