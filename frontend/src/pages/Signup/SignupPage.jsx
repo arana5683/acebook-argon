@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import "../styles/signuppage.css"
 
 import { signup } from "../../services/authentication";
 
@@ -45,6 +46,7 @@ export const SignupPage = () => {
       <label htmlFor="firstName">First Name:</label>
         <input
           id="firstName"
+          placeholder="First Name"
           type="text"
           value={firstName}
           onChange={handlefirstNameChange}
@@ -52,6 +54,7 @@ export const SignupPage = () => {
         <label htmlFor="lastName">Last Name:</label>
         <input
           id="lastName"
+          placeholder="Last Name"
           type="text"
           value={lastName}
           onChange={handlelastNameChange}
@@ -59,6 +62,7 @@ export const SignupPage = () => {
         <label htmlFor="email">Email:</label>
         <input
           id="email"
+          placeholder="Email"
           type="text"
           value={email}
           onChange={handleEmailChange}
