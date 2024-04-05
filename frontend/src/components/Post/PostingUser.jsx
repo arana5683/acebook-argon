@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 
 const PostingUser = (props) => {
   const [ following, setFollowing ] = useState(false);
+  const [ isSelf, setIsSelf ] = useState(false);
 
   useEffect(() => {
     try {
@@ -14,6 +15,7 @@ const PostingUser = (props) => {
       else {
         setFollowing(false);
       }
+      setIsSelf(props.post.userId === localStorage.getItem("userId"));
     } catch (err) {
       console.log(err);
     }
@@ -28,12 +30,12 @@ const PostingUser = (props) => {
     <div className="name">{props.post.firstName} {props.post.lastName}</div>
     <img className="profilePicture"src = "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_640.png"></img>
     <div className="followButton">
-      <button>
+      {!isSelf && <button>
       <FontAwesomeIcon className="follow" onClick={handleFollowUser} 
       icon={following ? faUserMinus : faUserPlus} 
       color={following ? 'grey' : 'blue'}
       title={following ? 'Unfollow user' : 'Follow user'}/>
-      </button>
+      </button>}
     </div>
     </div>
   );
