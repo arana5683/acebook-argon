@@ -216,17 +216,16 @@ describe("/posts", () => {
         firstName: "testFirstName",
         lastName: "testLastName",
         message: "howdy!", 
-        imagePath: "/uploads/0c1cbe94-0240-439b-b1f4-8386d92a7d16smiley.png"
+        image: "/uploads/0c1cbe94-0240-439b-b1f4-8386d92a7d16smiley.png"
       });
 
       await post1.save();
 
       const response = await request(app).get("/posts");
-        expect(response.imagePath).toBeUndefined();
+        expect(response.image).toBeUndefined();
     });
 
     test("test if post has image, with token", async () => {
-      const imagePath = '/Users/jesstodd/Documents/Makers/SOFTWARE-DEVELOPMENT/acebook-argon/api/middleware/uploads/0c1cbe94-0240-439b-b1f4-8386d92a7d16smiley.png';
       const post1 = new Post({ 
         userId: "testId",
         firstName: "testFirstName",

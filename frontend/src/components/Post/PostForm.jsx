@@ -4,7 +4,6 @@ import { useState } from "react";
 const PostForm = (props) => {
     const [text, setText] = useState('');
     const [file, setFile] = useState(null);
-    // initialises file and sets it as null to indicate no file selected 
 
     const handleChange = (event) => {
         setText(event.target.value);
@@ -13,8 +12,6 @@ const PostForm = (props) => {
     const handleFileChange = (event) => {
         setFile(event.target.files[0]);
     };
-    // this is triggered when user selects a file - updates file state - event.target.files 
-    // represents files selected - [0] is first file.
 
     const handlePost = async () => {
 
@@ -36,7 +33,6 @@ const PostForm = (props) => {
         }
         
     };
-    // resets the state to its value
 
     return (
         <>

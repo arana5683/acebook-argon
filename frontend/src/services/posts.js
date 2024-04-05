@@ -60,13 +60,3 @@ export const postNewPost = async (token, postContents) => {
       `Received status ${response.status}. Expected 201. Unable to create post.`)
   }
 }
-
-// const postNewImagePost = async (token, postContents) => {
-//   const requestOptions = {
-//     method: "GET",
-//     headers: {
-//       Authorization: `Bearer ${token}`,
-//       "Content-type": "multipart/form-data"
-//     },
-//     body: postContents.get('image')
-//   }};
