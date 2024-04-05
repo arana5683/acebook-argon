@@ -57,7 +57,7 @@ export const ProfilePage = () => {
         <h2>Your Activity</h2>
             <div className="feed" role="feed">
                 {posts && posts.map((post) => (
-                    <Post post={post} key={post._id} token={token}/>
+                    <Post post={post} key={post._id} token={token} followedUsers={[]}/>
                 ))}
             </div>
         </>
