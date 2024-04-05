@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import "../style/loginpage.css"
 
 import { login } from "../../services/authentication";
 
@@ -35,6 +36,7 @@ export const LoginPage = () => {
         <label htmlFor="email">Email:</label>
         <input
           id="email"
+          placeholder="Email"
           type="text"
           value={email}
           onChange={handleEmailChange}
@@ -42,6 +44,7 @@ export const LoginPage = () => {
         <label htmlFor="password">Password:</label>
         <input
           id="password"
+          placeholder="Password"
           type="password"
           value={password}
           onChange={handlePasswordChange}
