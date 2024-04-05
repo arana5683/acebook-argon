@@ -16,14 +16,14 @@ const Post = (props) => {
   return (
     <>
     <div className="Post">
-      <PostingUser id="item-left" post={props.post}/>
+      <PostingUser id="item-left" post={props.post} followedUsers={props.followedUsers} handleFollow={props.handleFollow}/>
       {props.post.image && (
         <img src={imageUrl} alt="Post Image" className="post-image" />
       )}
       <article id="item-wide" className="testContent" data-post-id = {props.post._id} key={props.post._id}>{props.post.message}</article> <br></br>
       <LikeDisplay  postId={props.post._id} id="item-right"/>
       <div>
-        <button title="comments-button" onClick={() => {
+        <button title="Comments" onClick={() => {
           setShowComments(!showComments)}}
         ><FontAwesomeIcon icon={faComments} />
         </button>

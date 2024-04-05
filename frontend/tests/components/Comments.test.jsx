@@ -13,6 +13,12 @@ vi.mock("../../src/services/comments", () => {
     return { getComments: getCommentsMock };
 });
 
+// Mocking the isUserFollowed service
+vi.mock("../../src/services/users", () => {
+    const isUserFollowedMock = vi.fn();
+    return { isUserFollowed: isUserFollowedMock };
+});
+
 describe("Comments", () => {
     
     beforeEach(() => {
