@@ -59,22 +59,13 @@ const followUser = async (req, res) => {
   }
 }
 
-const isUserFollowed = async (req, res) => {
+const getFollowedUsers = async (req, res) => {
   const newToken = generateToken(req.user_id);
-  if (req.user_id !== req.query.targetId) {
-    try {
-      const currentUser = await User.findById(req.user_id);
-      const targetUser = await User.findById(req.query.targetId);
-    if (currentUser.following.includes(targetUser._id)) {
-      res.status(200).json({ followed: true, token: newToken });
-    } else {
-      res.status(200).json({ followed: false, token: newToken });
-    }
-    } catch (err) {
-      res.status(500).json(err);
-    }
-  } else {
-    res.status(200).json({ self: true, token: newToken });
+  try {
+    const currentUser = await User.findById(req.user_id);
+    res.status(200).json({ users: currentUser.following, token: newToken });
+  } catch (err) {
+    res.status(500).json(err);
   }
 }
 
@@ -82,7 +73,7 @@ const UsersController = {
   create: create,
   getUser: getUser,
   followUser: followUser,
-  isUserFollowed: isUserFollowed
+  getFollowedUsers: getFollowedUsers
 };
 
 module.exports = UsersController;

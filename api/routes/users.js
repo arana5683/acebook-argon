@@ -10,6 +10,6 @@ router.get("/", tokenChecker, UsersController.getUser);
 router.post("/", UsersController.create);
 
 router.put("/follow", tokenChecker, UsersController.followUser);
-router.get("/following", tokenChecker, UsersController.isUserFollowed);
+router.get("/follow", tokenChecker, UsersController.getFollowedUsers);
 
 module.exports = router;
