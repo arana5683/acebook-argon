@@ -49,7 +49,9 @@ export const FeedPage = () => {
 
   return (
     <>
+    <div>
     <NavBar />
+    </div>
     <PostForm handleNewPost={handleNewPost}/>
       <h2>Posts</h2>
       <div className="feed" role="feed">
