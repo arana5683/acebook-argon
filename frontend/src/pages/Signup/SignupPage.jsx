@@ -8,11 +8,17 @@ export const SignupPage = () => {
   const [lastName, setlastName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [repeatPassword, setRepeatPassword] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
   const navigate = useNavigate();
 
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
+      if (password !== repeatPassword) {
+        setErrorMessage("Passwords do not match. Please try again.")
+        return;
+      }
       await signup(firstName, lastName, email, password);
       console.log("redirecting...:");
       navigate("/login");
@@ -37,6 +43,10 @@ export const SignupPage = () => {
   const handlePasswordChange = (event) => {
     setPassword(event.target.value);
   };
+
+  const handleRepeatPasswordChange = (event) => {
+    setRepeatPassword(event.target.value);
+  }
 
   return (
     <>
@@ -71,8 +81,17 @@ export const SignupPage = () => {
           value={password}
           onChange={handlePasswordChange}
         />
+        <label htmlFor="repeatPassword">Repeat Password:</label>
+        <input
+          placeholder="Repeat Password"
+          id="repeatPassword"
+          type="Password"
+          value={repeatPassword}
+          onChange={handleRepeatPasswordChange}
+        />
         <input role="submit-button" id="submit" type="submit" value="Submit" />
       </form>
+      <p style={{color: "red"}}>{errorMessage}</p>
     </>
   );
 };

@@ -67,4 +67,13 @@ describe("Login Page", () => {
 
     expect(navigateMock).toHaveBeenCalledWith("/login");
   });
+
+  test("shows error message on an unsucessful login", async () => {
+    render(<LoginPage />);
+    login.mockRejectedValue(new Error("Error loggin in"));
+    await completeLoginForm();
+  
+
+    expect(screen.getByText("Invalid email or password. Please try again.")).toBeInTheDocument();
+  })
 });
