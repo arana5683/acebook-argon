@@ -4,6 +4,7 @@ import { getUser } from "../../services/users";
 import { getPostsForUser } from "../../services/posts";
 import { NavBar } from "../../components/NavBar";
 import Post from "../../components/Post/Post";
+import "../styles/profilepage.css"
 
 export const ProfilePage = () => {
     const navigate = useNavigate();
@@ -47,7 +48,7 @@ export const ProfilePage = () => {
         <div>
             <NavBar />
         </div>
-        <h1>{user.firstName} {user.lastName}</h1>
+        <h1 className=" profile-name">{user.firstName} {user.lastName}</h1>
         <h3>{user.email}</h3>
         <br></br>
         <img className="profilePicture"

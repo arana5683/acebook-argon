@@ -1,0 +1,14 @@
+.profile-name{
+   margin-top: 80px;
+    background-color: #1877f2;
+    padding: 10px;
+    color: white;
+    padding-left: 5px;
+    padding-right: 5px;
+    font-size: 30px;
+}
+
+h3{
+    padding: 10px;
+    font-size: 20px;
+}

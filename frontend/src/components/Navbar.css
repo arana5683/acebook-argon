@@ -1,0 +1,28 @@
+#navbar-div-container nav{
+display: flex;
+justify-content: center;
+
+margin-bottom: 20px;
+padding-top: 10px;
+padding-bottom: 10px;
+padding-left: 200px;
+padding-right: 200px;
+
+}
+
+button{
+padding: 4px;
+margin: 0 10px;
+color: white;
+border-radius: 4px;
+border: none;
+background-color: #1877f2;
+cursor: pointer;
+
+}
+#posting-button{size: 10px;
+width:50px;}
+
+nav button:hover {
+    background-color: #a6c5ef;
+}
