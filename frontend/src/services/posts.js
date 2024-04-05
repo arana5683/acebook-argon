@@ -41,8 +41,6 @@ export const getPostsForUser = async (token) => {
 
 
 export const postNewPost = async (token, postContents) => {
-  console.log(postContents.get('message'), postContents.get('image'))
-  // console.log(postContents)
   const requestOptions = {
     method: "POST",
     headers: {
@@ -77,12 +75,10 @@ export const updatePostLikesArr = async (token, likeContents) => {
   if (response.status !== 200) {
       throw new Error(`Received status ${response.status}. Unable to update post.`);
   }
-  console.log(data)
   return data;
 };
 
 export const checkLikeStatus = async (token, content) => {
-  console.log(content)
   try {
       const response = await fetch(`${BACKEND_URL}/posts/${content.postId}/likeStatus`, {
       method: "GET",
@@ -102,14 +98,12 @@ export const checkLikeStatus = async (token, content) => {
 }}
 
 export const getPostLikes = async (token, postId) => {
-  console.log(postId)
   const requestOptions = {
     method: "GET",
     headers: {
       Authorization: `Bearer ${token}`
     }
   }
-  console.log(postId)
   const response = await fetch(`${BACKEND_URL}/posts/${postId}/likes`, requestOptions);
 
   if (response.status !== 200) {
@@ -117,6 +111,5 @@ export const getPostLikes = async (token, postId) => {
   }
 
   const data = await response.json();
-  console.log(data.likes)
   return data.likes;
 }
