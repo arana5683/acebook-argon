@@ -33,7 +33,7 @@ const PostingUser = (props) => {
       {!isSelf && <button>
       <FontAwesomeIcon className="follow" onClick={handleFollowUser} 
       icon={following ? faUserMinus : faUserPlus} 
-      color={following ? 'grey' : 'blue'}
+      color={following ? 'black' : 'white'}
       title={following ? 'Unfollow user' : 'Follow user'}/>
       </button>}
     </div>
