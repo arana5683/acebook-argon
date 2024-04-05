@@ -4,6 +4,8 @@ const JWT = require("jsonwebtoken");
 const app = require("../../app");
 const Post = require("../../models/post");
 const User = require("../../models/user");
+const fs = require('fs');
+const path = require('path');
 
 require("../mongodb_helper");
 
@@ -207,7 +209,39 @@ describe("/posts", () => {
 
       });
     });
-  });
+
+    test("test if post has image, without token", async () => {
+      const post1 = new Post({ 
+        userId: "testId",
+        firstName: "testFirstName",
+        lastName: "testLastName",
+        message: "howdy!", 
+        image: "/uploads/0c1cbe94-0240-439b-b1f4-8386d92a7d16smiley.png"
+      });
+
+      await post1.save();
+
+      const response = await request(app).get("/posts");
+        expect(response.image).toBeUndefined();
+    });
+
+    test("test if post has image, with token", async () => {
+      const post1 = new Post({ 
+        userId: "testId",
+        firstName: "testFirstName",
+        lastName: "testLastName",
+        message: "howdy!", 
+        image: "/uploads/1b240fea-8aee-45b4-9a72-1c5df06835f5smiley.png"})
+      
+      await post1.save();
+
+      const response = await request(app)
+        .get("/posts")
+        .set("Authorization", `Bearer ${token}`);
+        
+        expect(response.status).toEqual(200);
+        expect(response.body.posts[0].image).toEqual("/uploads/1b240fea-8aee-45b4-9a72-1c5df06835f5smiley.png");
+    });
 
   test('testing that userid are added and removed when like button fired', async () => {
     const post1 = new Post({ 
@@ -224,4 +258,8 @@ describe("/posts", () => {
 
 
   })
-});
+  });
+
+  });
+
+

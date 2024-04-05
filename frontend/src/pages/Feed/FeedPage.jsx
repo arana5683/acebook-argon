@@ -5,9 +5,12 @@ import Post from "../../components/Post/Post";
 import { NavBar } from "../../components/NavBar";
 import PostForm from "../../components/Post/PostForm";
 import { postNewPost } from "../../services/posts";
+import { followUser, getFollowedUsers } from "../../services/users";
+
 
 export const FeedPage = () => {
   const [posts, setPosts] = useState([]);
+  const [followedUsers, setFollowedUsers] = useState([]);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -22,22 +25,42 @@ export const FeedPage = () => {
           console.error(err);
           navigate("/login");
         });
+      getFollowedUsers(token)
+      .then((data) => {
+        setFollowedUsers(data.users);
+      });
     }
   }, [navigate]);
 
-  const handleNewPost = async (text) => {
-    if (text.trim() !== '') {
-      const formattedText = `{"message": "${text}"}`
-      await postNewPost(token, JSON.parse(formattedText));
+
+  const handleNewPost = async (formData) => {
+    // formData = { message: 'some text', image: 'image.png' }
+
+    console.log(formData)
+      await postNewPost(token, formData);
       getPosts(token)
         .then((data) => {
           setPosts(data.posts);
           localStorage.setItem("token", data.token);
         })
+      
         .catch((err) => {
           console.error(err);
           navigate("/login");
         });
+    
+  }
+
+  const handleFollow = async (targetId) => {
+    try {
+      const token = localStorage.getItem("token");
+      await followUser(token, targetId);
+      getFollowedUsers(token)
+      .then((data) => {
+        setFollowedUsers(data.users);
+      });
+    } catch (err) {
+      console.log(err);
     }
   }
 
@@ -56,7 +79,7 @@ export const FeedPage = () => {
       <h2>Posts</h2>
       <div className="feed" role="feed">
         {posts.map((post) => (
-          <Post post={post} key={post._id} token={token} />
+          <Post post={post} key={post._id} token={token} followedUsers={followedUsers} handleFollow={handleFollow}/>
         ))}
       </div>
     </>

@@ -1,6 +1,12 @@
 import { render, screen } from "@testing-library/react";
-
+import { vi } from "vitest"
 import Post from "../../src/components/Post/Post";
+
+// Mocking the isUserFollowed service
+vi.mock("../../src/services/users", () => {
+  const isUserFollowedMock = vi.fn();
+  return { isUserFollowed: isUserFollowedMock };
+});
 
 describe("Post", () => {
   test("displays the message as an article", () => {
@@ -13,6 +19,6 @@ describe("Post", () => {
   test("Theres a comment button to push on Post component", () => {
     const testPost = { _id: "123", message: "test message" };
     render(<Post post={testPost} />);
-    expect(screen.getByTitle("comments-button")).toBeVisible();
+    expect(screen.getByTitle("Comments")).toBeVisible();
   });
 });
