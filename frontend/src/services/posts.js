@@ -59,4 +59,64 @@ export const postNewPost = async (token, postContents) => {
     throw new Error(
       `Received status ${response.status}. Expected 201. Unable to create post.`)
   }
+};
+
+export const updatePostLikesArr = async (token, likeContents) => {
+  const requestOptions = {
+      method: "PUT",
+      headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-type": "application/json"
+      },
+      body: JSON.stringify(likeContents),
+  };
+
+  const response = await fetch(`${BACKEND_URL}/posts`, requestOptions);
+  const data = await response.json();
+
+  if (response.status !== 200) {
+      throw new Error(`Received status ${response.status}. Unable to update post.`);
+  }
+  console.log(data)
+  return data;
+};
+
+export const checkLikeStatus = async (token, content) => {
+  console.log(content)
+  try {
+      const response = await fetch(`${BACKEND_URL}/posts/${content.postId}/likeStatus`, {
+      method: "GET",
+      headers: {
+          Authorization: `Bearer ${token}`,
+      },
+  });
+
+  if (response.ok) {
+      const data = await response.json();
+      return data
+  } else {
+      throw new Error('Failed to fetch like status');
+  }
+} catch (error) {
+  console.error('Error:', error);
+}}
+
+export const getPostLikes = async (token, postId) => {
+  console.log(postId)
+  const requestOptions = {
+    method: "GET",
+    headers: {
+      Authorization: `Bearer ${token}`
+    }
+  }
+  console.log(postId)
+  const response = await fetch(`${BACKEND_URL}/posts/${postId}/likes`, requestOptions);
+
+  if (response.status !== 200) {
+    throw new Error(`Received status ${response.status}. Unable to fetch like array.`);
+  }
+
+  const data = await response.json();
+  console.log(data.likes)
+  return data.likes;
 }

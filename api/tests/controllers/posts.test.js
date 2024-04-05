@@ -242,6 +242,22 @@ describe("/posts", () => {
         expect(response.status).toEqual(200);
         expect(response.body.posts[0].image).toEqual("/uploads/1b240fea-8aee-45b4-9a72-1c5df06835f5smiley.png");
     });
+
+  test('testing that userid are added and removed when like button fired', async () => {
+    const post1 = new Post({ 
+      userId: "testId",
+      firstName: "testFirstName",
+      lastName: "testLastName",
+      message: "howdy!",
+      likes: []
+    });
+    await post1.save();
+    const response = await request(app).put("/posts").set("Authorization", `Bearer ${token}`).send({postId: post1._id, userId: "testId"});
+    const updatedPost = await Post.find({_id: post1._id})
+    expect(updatedPost[0].likes).toEqual(["testId"]);
+
+
+  })
   });
 
   });

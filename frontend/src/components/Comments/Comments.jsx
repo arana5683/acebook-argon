@@ -27,7 +27,8 @@ const Comments = (props) => {
         <div className="Comments">
                 <CommentForm handleNewComment={handleNewComment}/>
                 <p>{backEndComments.length} Comments:</p>
-                {props.showComments && backEndComments.map((comment) => {
+                {console.log(backEndComments.reverse())}
+                {props.showComments && backEndComments.slice().reverse().map((comment) => {
                     return (
                     <>
                     <Comment key={comment._id} comment={comment} />
