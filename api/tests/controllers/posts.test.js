@@ -208,4 +208,20 @@ describe("/posts", () => {
       });
     });
   });
+
+  test('testing that userid are added and removed when like button fired', async () => {
+    const post1 = new Post({ 
+      userId: "testId",
+      firstName: "testFirstName",
+      lastName: "testLastName",
+      message: "howdy!",
+      likes: []
+    });
+    await post1.save();
+    const response = await request(app).put("/posts").set("Authorization", `Bearer ${token}`).send({postId: post1._id, userId: "testId"});
+    const updatedPost = await Post.find({_id: post1._id})
+    expect(updatedPost[0].likes).toEqual(["testId"]);
+
+
+  })
 });
