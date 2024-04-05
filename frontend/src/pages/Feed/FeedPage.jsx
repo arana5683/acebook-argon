@@ -64,6 +64,21 @@ export const FeedPage = () => {
     }
   }
 
+  const filterPosts = (event) => {
+    if (event.target.checked) {
+      setPosts(posts.filter((post) => { return followedUsers.includes(post.userId) }));
+    } else {
+      getPosts(token)
+      .then((data) => {
+        setPosts(data.posts);
+      })
+      .catch((err) => {
+        console.error(err);
+        navigate("/login");
+      });
+    }
+  }
+
   const token = localStorage.getItem("token");
   if (!token) {
     navigate("/login");
@@ -77,6 +92,12 @@ export const FeedPage = () => {
     </div>
     <PostForm handleNewPost={handleNewPost}/>
       <h2>Posts</h2>
+      <div style={{textAlign:'left'}} className="filterCheckbox">
+        <label>
+        <input id="filter" type="checkbox" onClick={filterPosts}/>
+        Only show posts from followed users
+        </label>
+      </div>
       <div className="feed" role="feed">
         {posts.map((post) => (
           <Post post={post} key={post._id} token={token} followedUsers={followedUsers} handleFollow={handleFollow}/>
