@@ -1,9 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-<<<<<<< HEAD
 import "../styles/signuppage.css"
-=======
->>>>>>> main
+
 import { signup } from "../../services/authentication";
 
 export const SignupPage = () => {
