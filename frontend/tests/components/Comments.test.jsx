@@ -71,4 +71,31 @@ describe("Comments", () => {
     
     });
 
+    test("Comments are displayed in reverse chronological order ", async () => {
+        
+        window.localStorage.setItem("token", "testToken");
+        
+        const mockComments = [{
+            body: "First Comment", 
+            firstName: "Guy",
+            lastName: "incognito",
+            userID: "ID", 
+            parentID: "PARENT ID"}, 
+            
+            {body: "Nice post!", 
+            firstName: "Larry", 
+            lastName: "Facebook", 
+            parentID: "PARENT ID", 
+            userID: "ID"}];
+        
+        getComments.mockResolvedValue({ comments: mockComments });
+        render(<Comments parent={{_id: "PARENT ID"}} showComments={true} token={"testToken"}/>);
+        
+        const comment1 = await screen.findByText("First Comment");
+        const comment2 = await screen.findByText("Nice post!");
+        expect(comment2.compareDocumentPosition(comment1)).toBe(2);
+        
+    
+    });
+
 })

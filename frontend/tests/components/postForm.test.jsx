@@ -18,6 +18,6 @@ describe('unit testing for post form', () =>{
         const textArea = screen.getByRole('textbox')
         await userEvent.type(textArea, "This is a test post");
 
-        expect(textArea.value).toBe("This is a test post");
-    });
-});
+        expect(textArea.value).toBe("This is a test post")
+    })
+})
