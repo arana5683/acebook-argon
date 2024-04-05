@@ -23,7 +23,7 @@ const Post = (props) => {
       <article id="item-wide" className="testContent" data-post-id = {props.post._id} key={props.post._id}>{props.post.message}</article> <br></br>
       <LikeDisplay  postId={props.post._id} id="item-right"/>
       <div>
-        <button title="comments-button" onClick={() => {
+        <button title="Comments" onClick={() => {
           setShowComments(!showComments)}}
         ><FontAwesomeIcon icon={faComments} />
         </button>

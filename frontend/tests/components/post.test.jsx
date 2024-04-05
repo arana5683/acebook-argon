@@ -19,6 +19,6 @@ describe("Post", () => {
   test("Theres a comment button to push on Post component", () => {
     const testPost = { _id: "123", message: "test message" };
     render(<Post post={testPost} />);
-    expect(screen.getByTitle("comments-button")).toBeVisible();
+    expect(screen.getByTitle("Comments")).toBeVisible();
   });
 });

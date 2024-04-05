@@ -27,7 +27,14 @@ const PostingUser = (props) => {
     <div className="PostingUser">
     <div className="name">{props.post.firstName} {props.post.lastName}</div>
     <img className="profilePicture"src = "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_640.png"></img>
-    <div className="followButton"><button onClick={ handleFollowUser }><FontAwesomeIcon icon={following ? faUserMinus : faUserPlus} color={following ? 'grey' : 'blue'}/></button></div>
+    <div className="followButton">
+      <button>
+      <FontAwesomeIcon className="follow" onClick={handleFollowUser} 
+      icon={following ? faUserMinus : faUserPlus} 
+      color={following ? 'grey' : 'blue'}
+      title={following ? 'Unfollow user' : 'Follow user'}/>
+      </button>
+    </div>
     </div>
   );
 };
