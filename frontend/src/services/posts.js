@@ -41,15 +41,17 @@ export const getPostsForUser = async (token) => {
 
 
 export const postNewPost = async (token, postContents) => {
+  console.log(postContents.get('message'), postContents.get('image'))
+  // console.log(postContents)
   const requestOptions = {
     method: "POST",
     headers: {
       Authorization: `Bearer ${token}`,
-      "Content-type": "application/json"
     },
-    body: JSON.stringify(postContents),
-  };
+    body: postContents
+  }
 
+  // JSON.stringify({ message: postContents.get('message'), image: postContents.get('image')
   const response = await fetch(`${BACKEND_URL}/posts`, requestOptions);
   
   if (response.status !== 201) {

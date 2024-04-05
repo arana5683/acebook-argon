@@ -37,12 +37,13 @@ describe("authentication service", () => {
       const testEmail = "test@testEmail.com";
       const testPassword = "12345678";
 
-      fetch.mockResponseOnce(JSON.stringify({ token: "testToken" }), {
+      fetch.mockResponseOnce(JSON.stringify({ token: "testToken", userId: "testUserId" }), {
         status: 201,
       });
 
-      const token = await login(testEmail, testPassword);
+      const [token, userId] = await login(testEmail, testPassword);
       expect(token).toEqual("testToken");
+      expect(userId).toEqual("testUserId");
     });
 
     test("throws an error if the request failed", async () => {
