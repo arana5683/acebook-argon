@@ -18,6 +18,17 @@ describe('unit testing for post form', () =>{
         const textArea = screen.getByRole('textbox')
         await userEvent.type(textArea, "This is a test post");
 
-        expect(textArea.value).toBe("This is a test post");
-    });
-});
+        expect(textArea.value).toBe("This is a test post")
+    })
+
+    test('testing that the post form is submitted with status 201', () => {
+        render(<PostForm />)
+        const button = screen.getByRole('post-button')
+        const textArea = screen.getByRole('textbox')
+
+        fireEvent.change(textArea, {target: {value: "This is a test post"}})
+        fireEvent.click(button)
+        expect(postNewPost).toHaveBeenCalled();
+    })
+
+})
